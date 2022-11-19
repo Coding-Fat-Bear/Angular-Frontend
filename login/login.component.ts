@@ -7,8 +7,12 @@ import { DateTime } from 'luxon';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  selected: Date = new Date();
-  
+  // selected: DateTime = DateTime;
+  selected = DateTime.now().toLocaleString();
+  // selected = DateTime.fromISO(this.str);
+  calChange(event: DateTime){
+  }
+  // selected: Date | null;
   constructor() { }
 
   ngOnInit(): void {

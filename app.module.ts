@@ -15,7 +15,13 @@ import { MaterialModule } from './material/material.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    // MaterialModule,
     MaterialModule
+    // FormsModule,
+    // MatDatepickerModule,
+    // ReactiveFormsModule,
+    // MatSliderModule,
+    // MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
