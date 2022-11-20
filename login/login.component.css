@@ -3,5 +3,53 @@
   }
   
   mat-slider {
-    width: 300px;
+    width: 500px;
   }
+
+ 
+  .time-picker {
+    display: flex;
+    justify-content: space-around;
+    /* align-items: center; */
+  
+    width: 100%;
+    max-width: 100px;
+    margin: 0 auto;
+    padding: 1px 1px;
+  
+    background-color: #F3F3F3;
+    border-radius: 8px;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
+  
+    color: #53565A;
+    font-size: 24px;
+    font-weight: 700;
+  
+    user-select: none;
+  }
+  
+  .time-picker .hour,
+  .time-picker .minute {
+    position: relative;
+    min-width: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: stretch;
+    align-items: stretch;
+  }
+  
+  .time-picker .hour .hr,
+  .time-picker .minute .min {
+    background: none;
+    font-size: 24px;
+    appearance: none;
+    border: none;
+    outline: none;
+    display: block;
+    width: 40px;
+    text-align: center;
+    font-family: 'Saira', sans-serif;
+  }
+  
+  
+ 

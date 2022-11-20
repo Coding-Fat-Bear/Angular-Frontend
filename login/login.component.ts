@@ -7,10 +7,15 @@ import { DateTime } from 'luxon';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  // selected: DateTime = DateTime;
-  selected = DateTime.now().toLocaleString();
-  // selected = DateTime.fromISO(this.str);
+  selected = DateTime.now().toJSDate();
+  
+  // selected = new Date();
   calChange(event: DateTime){
+    console.log(this.selected);
+    console.log(this.selected.toLocaleDateString());
+    const hi : Date = DateTime.fromJSDate(this.selected).toJSDate();
+    console.log(hi);
+    
   }
   // selected: Date | null;
   constructor() { }
