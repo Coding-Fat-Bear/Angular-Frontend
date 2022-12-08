@@ -1,0 +1,57 @@
+
+        <div style="width: 40%;float: left; padding-left: 5%;padding-top: 5%;">
+          <!-- <form class="example-form" >
+          <mat-form-field class="example-full-width">
+            <mat-label>Check In</mat-label>
+            <input matInput type="time" value = "timesheet.checkin" id = "in" (change)="in($event)">
+          </mat-form-field><br>
+          <mat-form-field class="example-full-width">
+            <mat-label>Check Out</mat-label>
+            <input matInput type="time" value= "timesheet.checkout" id = "out" (change)="out($event)">
+          </mat-form-field>
+        </form> -->
+            
+                <mat-label >Check In</mat-label>
+            
+                <div class="time-picker" >
+                    
+                    <div class="hour">
+                        <input type="number" class="hr" [(ngModel)]="checkinClock.hour" min = 00 max = 23  (change)="checkinUpdate()">
+                    </div>
+
+                    <div class="separator">:</div>
+                    
+                    <div class="minute">
+                        <input type="number" class="min" [(ngModel)]="checkinClock.min" min = 00 max = 59  (change)="checkinUpdate()">
+                    </div>
+                </div>
+
+                <mat-label >Check out</mat-label>
+            
+                <div class="time-picker" >
+                    
+                    <div class="hour">
+                        <input type="number" class="hr" [(ngModel)]="checkOutClock.hour" min = 00 max = 23  (change)="checkOutUpdate()">
+                    </div>
+
+                    <div class="separator">:</div>
+                    
+                    <div class="minute">
+                        <input type="number" class="min" [(ngModel)]="checkOutClock.min" min = 00 max = 59  (change)="checkOutUpdate()">
+                    </div>
+                </div>
+            
+        <div> <p>Selected date: {{selected | date}}</p>
+ 
+            <p>Selected date: {{selected}}</p></div>
+        </div >
+  <div style="width: 40%;float: right">
+    <mat-card class="inline-calendar-card">
+        <mat-calendar [(selected)]="selected" (selectedChange)="calChange($event)"></mat-calendar>
+      </mat-card>
+
+  </div>
+
+
+
+
