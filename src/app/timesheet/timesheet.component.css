@@ -1,11 +1,11 @@
 .inline-calendar-card {
     width: 300px;
   }
-  
-  mat-slider {
-    width: 500px;
+  .line1{
+    display: flex;
+    justify-content: stretch;
+    align-items: stretch;
   }
-
  
   .time-picker {
     display: flex;

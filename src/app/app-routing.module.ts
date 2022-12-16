@@ -7,8 +7,8 @@ import { TimesheetComponent } from './timesheet/timesheet.component';
 const routes: Routes = [
   {path:'login',component: LoginComponent},
   
-  {path:'', redirectTo:'timesheet',pathMatch:'full'},
-  {path:'timesheet',component: TimesheetComponent},
+  {path:'', redirectTo:'login',pathMatch:'full'},
+  {path:'timesheet/:id/:date',component: TimesheetComponent},
   {path:'home/:id',component: HomeComponent}
 ];
 
