@@ -1,126 +1,54 @@
 
 <div style="width: 40%;float: left; padding-left: 5%;padding-top: 5%;">
-<div class="form-group">
-        <button mat-raised-button color="warn" (click)="displayLog()">Display time</button><br>
-        
-        <div class="line1">
-        <div style="width: 50%;float: left;">Check In</div>
-        
-            <div class="time-picker " >
-                
-                <div class="hour">
-                    <input class="hr" [(ngModel)]="checkinClock.hour"   (change)="checkinUpdate()">
-                </div>
-
-                <div class="separator">:</div>
-                
-                <div class="minute">
-                    <input  class="min" [(ngModel)]="checkinClock.min"  (change)="checkinUpdate()">
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="line1">
-            <mat-label style="width: 50%;float: left;">Check out</mat-label>
-        
-            <div class="time-picker" >
-                
-                <div class="hour">
-                    <input  class="hr" [(ngModel)]="checkOutClock.hour"  (change)="checkOutUpdate()">
-                </div>
-
-                <div class="separator">:</div>
-                
-                <div class="minute">
-                    <input class="min" [(ngModel)]="checkOutClock.min"   (change)="checkOutUpdate()">
-                </div>
-            </div>
-        </div>    
-        <div> <p>Selected date: {{selected | date}}</p>
- 
-            <p>Selected date: {{selected}}</p></div>
-        </div >
-        <div style="padding-top: 10px;">
-            <div class="border border-1 rounded shadow-sm" style="padding: 10px;">
-        
-                <label style="padding-right:10px;">Other Time Adjustments</label>
-                <mat-form-field>
-                    <mat-select [(value)]="selectbt">
-                        <mat-option >None</mat-option>
-                        <mat-option value="1">Overtime</mat-option>
-                        <mat-option value="2 " [disabled]="otbkdischk">Overtime's breaktime</mat-option>
-                        <mat-option value="3">Change usual Breaktime</mat-option>
-                    </mat-select>
+    <div class="form-group">
+            <button mat-raised-button color="warn" (click)="displayLog()">Display time</button><br><br>
+            
+            <!-- <div class="line1">
+                <div style="width: 50%;float: left;">Check In</div>
+                <input  type="time" [(ngModel)]="timesheet.checkin" (change)="cusotbtcheck()" placeholder="HH:MM" required
+                        style="margin-left: 10px; width: 150px;">
+               
+            </div> -->
+            <form [formGroup]="form">
+                <mat-form-field appearance="outline">
+                    <mat-label>Check In</mat-label>
+                    <input type="time" matInput name="time" min="09:00"  max="18:00" formControlName="checkin" >
+                    <mat-error *ngIf="timeOrderValidator">Invalid CheckIn</mat-error>
+                    <mat-hint align="end">checkin starts at {{checkinTime}}:00</mat-hint>
                 </mat-form-field>
-        
-                <form class="example-form">
-                    <mat-form-field class="example-full-width" appearance="fill">
-                        <mat-label>Leave a comment</mat-label>
-                        <textarea matInput placeholder="Ex. I had a great day " [(ngModel)]="timesheet.comment"
-                            [ngModelOptions]="{standalone: true}"></textarea>
-                    </mat-form-field>
-                </form>
-        
-                <!-- <button mat-stroked-button (click)="check()"> check</button> -->
-            </div>
-        </div>
-
-
-        <div>
-
-            <div style="padding-top: 10px;" [ngSwitch]="selectbt">
-                <div class="border border-1 rounded shadow-sm" style="padding: 10px;" *ngSwitchCase="3">
-                    <span>
-                        <label style="font-size: medium;">BreakTime Start </label>
-                        <input matInput  type="time" [(ngModel)]="timesheet.btstart" (change)="cusbtcheck()" placeholder="HH:MM"
-                            style="margin-left: 10px; width: 100px;"></span>
-                    <br><br>
-                    <span>
-                        <label style="font-size: medium">BreakTime End</label>
-                        <input type="time" [(ngModel)]="timesheet.btend" (change)="cusbtcheck()" placeholder="HH:MM"
-                            style="margin-left: 18px; width: 150px;"></span><br>
-                    <span [hidden]="!cusbtcheck()" style="color: red;">Invalid Breaktime </span>
-                </div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Check Out</mat-label>
+                    <input type="time" matInput name="time" min="09:00" max="18:00" formControlName="checkout" >
+                    <mat-error *ngIf="timeOrderValidator">Invalid checkout</mat-error>
+                    <mat-hint align="end">checkout starts at {{checkoutTime}}:00</mat-hint>
+                </mat-form-field>
+            </form>
+             <div *ngIf="form.errors?.['required']">
+              </div>
+            <br>
+              
+            <div> <p>Selected date: {{selected | date}}</p>
+                
+                <p>Selected date: {{this.form}}</p>
+                <p>Selected checkin: {{form.value}}</p></div>
+                <!-- <mat-form-field appearance="outline">
+               
+                </mat-form-field> -->
+            </div >
+           
     
-                <div class="border border-1 rounded shadow-sm" style="padding: 10px;" *ngSwitchCase="2">
-                    <span>
-                        <label style="font-size: medium;">OT BreakTime Start </label>
-                        <input  type="time" [(ngModel)]="timesheet.otbtstart" (change)="cusotbtcheck()" placeholder="HH:MM"
-                            style="margin-left: 10px; width: 150px;"></span>
-                    <br><br>
-                    <span>
-                        <label style="font-size: medium">OT BreakTime End</label>
-                        <input type="time" [(ngModel)]="timesheet.otbtend" (change)="cusotbtcheck()" placeholder="HH:MM"
-                            style="margin-left: 18px; width: 150px;"></span><br>
-                    <span [hidden]="!cusotbtcheck()" style="color: red;">invalid overtime's breaktime </span>
-                </div>
+    </div>
     
     
-                <div class="border border-1 rounded shadow-sm" style="padding: 10px;" *ngSwitchCase="1">
-                    <span>
-                        <label style="font-size: medium;">OverTime Start </label>
-                        <input type="time" [(ngModel)]="timesheet.otstart" (change)="cusotcheck()" placeholder="HH:MM"
-                            style="margin-left: 10px; width: 150px;"></span>
-                    <br><br>
-                    <span>
-                        <label style="font-size: medium">OverTime End</label>
-                        <input type="time" [(ngModel)]="timesheet.otend" (change)="cusotcheck()" placeholder="HH:MM"
-                            style="margin-left: 18px; width: 150px;"></span><br>
-                    <span [hidden]="!cusotcheck()" style="color: red;">Invalid overtime </span>
-                </div>
-            </div>
-        </div>
-</div>
-
-
-
-<div style="width: 40%;float: right">
-<mat-card class="inline-calendar-card">
-    <mat-calendar [(selected)]="selected" (selectedChange)="calChange($event)"></mat-calendar>
-    </mat-card>
-
-</div>
-
-
-
-
+    
+    <div style="width: 40%;float: right">
+    <mat-card class="inline-calendar-card">
+        <mat-calendar [(selected)]="selected" (selectedChange)="calChange($event)"></mat-calendar>
+        </mat-card>
+    
+    </div>
+    
+    
+    
+    
+    
