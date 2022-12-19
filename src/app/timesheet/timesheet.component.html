@@ -2,53 +2,46 @@
 <div style="width: 40%;float: left; padding-left: 5%;padding-top: 5%;">
     <div class="form-group">
             <button mat-raised-button color="warn" (click)="displayLog()">Display time</button><br><br>
-            
-            <!-- <div class="line1">
-                <div style="width: 50%;float: left;">Check In</div>
-                <input  type="time" [(ngModel)]="timesheet.checkin" (change)="cusotbtcheck()" placeholder="HH:MM" required
-                        style="margin-left: 10px; width: 150px;">
-               
-            </div> -->
-            <form [formGroup]="form">
+
+            <form [formGroup]="timesheetForm">
                 <mat-form-field appearance="outline">
                     <mat-label>Check In</mat-label>
                     <input type="time" matInput name="time" min="09:00"  max="18:00" formControlName="checkin" >
-                    <mat-error *ngIf="timeOrderValidator">Invalid CheckIn</mat-error>
+                    <mat-error *ngIf="timesheetForm.errors?.['dateOrder']">Invalid CheckIn</mat-error>
                     <mat-hint align="end">checkin starts at {{checkinTime}}:00</mat-hint>
-                </mat-form-field>
+                </mat-form-field><br>
                 <mat-form-field appearance="outline">
                     <mat-label>Check Out</mat-label>
                     <input type="time" matInput name="time" min="09:00" max="18:00" formControlName="checkout" >
-                    <mat-error *ngIf="timeOrderValidator">Invalid checkout</mat-error>
+                    <mat-error >Invalid checkout</mat-error>
                     <mat-hint align="end">checkout starts at {{checkoutTime}}:00</mat-hint>
                 </mat-form-field>
             </form>
-             <div *ngIf="form.errors?.['required']">
-              </div>
+
             <br>
-              
+
             <div> <p>Selected date: {{selected | date}}</p>
-                
-                <p>Selected date: {{this.form}}</p>
-                <p>Selected checkin: {{form.value}}</p></div>
+
+                <p>Selected date: </p>
+                <p>Selected checkin: {{timesheetForm.value | json}}</p>
+                <p>form{{timesheetForm.errors?.["dateOrder"]}}</p></div>
                 <!-- <mat-form-field appearance="outline">
-               
+
                 </mat-form-field> -->
             </div >
-           
-    
+
+
     </div>
-    
-    
-    
+
+
+
     <div style="width: 40%;float: right">
     <mat-card class="inline-calendar-card">
         <mat-calendar [(selected)]="selected" (selectedChange)="calChange($event)"></mat-calendar>
         </mat-card>
-    
+
     </div>
-    
-    
-    
-    
-    
+
+
+
+
