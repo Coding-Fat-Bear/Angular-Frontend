@@ -11,23 +11,27 @@ export class TimesheetService {
   private baseUrl = "http://localhost:3000";
   constructor(private httpClient: HttpClient) { }
 
-  fetchById(id:number,date:Date){
+  fetchById(id:number,date:Date):Observable<any>{
     console.log("service");
     
-    console.log(`${this.baseUrl}/timesheet/update/${id}/${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}T00:00:00.000Z`);
-    return this.httpClient.get<Timesheet>(`${this.baseUrl}/timesheet/fetch/${id}/${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}T00:00:00.000Z`).toPromise();
+    const month = (date.getMonth()+1)<10?"0"+(date.getMonth()+1):date.getMonth()+1;
+    const date_v = (date.getDate())<10?"0"+date.getDate():date.getDate();
+
+
+    console.log(`${this.baseUrl}/timesheet/update/${id}/${date.getFullYear()}-${month}-${date_v}T00:00:00.000Z`);
+    return this.httpClient.get<Timesheet>(`${this.baseUrl}/timesheet/fetch/${id}/${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}T00:00:00.000Z`);
   }
 
   createById(Timesheet:Timesheet,id:number):Observable<any>{
     return this.httpClient.post<any>(`${this.baseUrl}/timesheet/create/${id}`,Timesheet)
   }
 
-  updateById(Timesheet:Timesheet,id:number,date:Date):Observable<any>{
+  updateById(Timesheet:Timesheet,id:Number,date:Date):Observable<any>{
     console.log("service");
     
     console.log(`${this.baseUrl}/timesheet/update/${id}/${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}T00:00:00.000Z`);
     
-    return this.httpClient.post<any>(`${this.baseUrl}/timesheet/update/${id}/${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}T00:00:00.000Z`,Timesheet)
+    return this.httpClient.put<any>(`${this.baseUrl}/timesheet/update/${id}/${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}T00:00:00.000Z`,Timesheet)
   }
 
   fetchByAllId(id:number):Observable<any>{

@@ -1,25 +1,143 @@
 
-<div style="width: 40%;float: left; padding-left: 5%;padding-top: 5%;">
+<div style="width: 55%;float: left; padding-left: 5%;padding-top: 1%;">
     <div class="form-group">
-            <button mat-raised-button color="warn" (click)="displayLog()">Display time</button><br><br>
-
+        
             <form [formGroup]="timesheetForm">
-                <mat-form-field appearance="outline">
-                    <mat-label>Check In</mat-label>
-                    <input type="time" matInput name="time" min="09:00"  max="18:00" formControlName="checkin" >
-                    <mat-error *ngIf="timesheetForm.errors?.['dateOrder']">Invalid CheckIn</mat-error>
-                    <mat-hint align="end">checkin starts at {{checkinTime}}:00</mat-hint>
-                </mat-form-field><br>
-                <mat-form-field appearance="outline">
-                    <mat-label>Check Out</mat-label>
-                    <input type="time" matInput name="time" min="09:00" max="18:00" formControlName="checkout" >
-                    <mat-error >Invalid checkout</mat-error>
-                    <mat-hint align="end">checkout starts at {{checkoutTime}}:00</mat-hint>
-                </mat-form-field>
+                <div class="border border-1 rounded shadow-sm" style="padding: 5%;">
+                    <mat-card>
+                        <mat-card-content class="text-center">Timesheet</mat-card-content>
+                        </mat-card><br>
+                    <div class="ml-2">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Date Type</mat-label>
+                            <mat-select formControlName="dayType">
+                            <mat-option *ngFor="let dayType of dayTypes" [value]="dayType.name">
+                                {{dayType.name}}
+                            </mat-option>
+                            </mat-select>
+                        </mat-form-field><br>
+
+                        <div class="inline">
+                            <div class="inline-b"><mat-form-field appearance="outline">
+                                <mat-label>Check In</mat-label>
+                                <input type="time" matInput name="time" min="09:00"  max="18:00" formControlName="checkin" >
+                                <mat-error >checkin is Mandatory</mat-error>
+                                <mat-hint align="end">checkin starts at {{checkinTime}}:00</mat-hint>
+                            </mat-form-field>
+                            <br>
+    
+                            <mat-error *ngIf="timesheetForm.errors?.['dateOrder']">Check-in time must be prior to check-out time</mat-error>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Check Out</mat-label>
+                                <input type="time" matInput name="time" min="09:00" max="18:00" formControlName="checkout" >
+                                <mat-error >Checkout is Mandatory</mat-error>
+                                <mat-hint align="end">checkout starts at {{checkoutTime}}:00</mat-hint>
+                            </mat-form-field> <br></div>
+                            <div class="inline-b " id="divToToggle" *ngIf="timesheetForm.value['isBreaktime']" >
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Breaktime start time</mat-label>
+                                    <input type="time" matInput name="time" min="18:00"  max="24:00" formControlName="BtStart" >
+                                    <mat-error >Invalid BtStart</mat-error>
+                                    <mat-hint align="end">Breaktime starts at {{BtStartTime}}:00</mat-hint>
+                                </mat-form-field>
+                                <br>
+                                
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Breaktime end Time</mat-label>
+                                    <input type="time" matInput name="time" min="18:00" max="24:00" formControlName="BtEnd" >
+                                    <mat-error >Invalid BtEnds</mat-error>
+                                    <mat-hint align="end">Breaktime Ends at {{BtEndTime}}:00</mat-hint>
+                                </mat-form-field> <br>
+                                
+                            </div>
+                        
+                        </div>
+                        
+                        <br>
+                        <mat-error *ngIf="timesheetForm.errors?.['dateBreakOrder']">Breaktime must be with Checkin and out</mat-error><br>
+                        <mat-checkbox formControlName="breakSkip" color="primary" class="ml-1">Break skipped</mat-checkbox><br>
+                       <mat-slide-toggle  (onchange)="onBreaktime()" formControlName="isBreaktime">Break Time</mat-slide-toggle>
+                        <br>
+                    </div>
+
+                    <mat-divider></mat-divider><br>
+
+                        <!-- <mat-form-field appearance="fill">
+                            <mat-label>Extras</mat-label>
+                            <mat-select >
+                                <mat-option >None</mat-option>
+                                <mat-option value="1">Overtime</mat-option>
+                                <mat-option value="2 " [disabled]=true>Overtime's breaktime</mat-option>
+                                <mat-option value="3">Change usual Breaktime</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <br> -->
+                    <mat-accordion>
+                        <mat-expansion-panel hideToggle>
+                        <mat-expansion-panel-header >
+                            <mat-panel-title >
+                            Overtime
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="inline">
+                            <div class="inline-b">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Overtime start time</mat-label>
+                                    <input type="time" matInput name="time" min="18:00"  max="24:00" formControlName="OtStart" >
+                                    <mat-error >Invalid OtStart</mat-error>
+                                    <mat-hint align="end">Overtime starts at {{OtStartTime}}:00</mat-hint>
+                                </mat-form-field>
+                                <br>
+                            
+                                
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Overtime end Time</mat-label>
+                                    <input type="time" matInput name="time" min="18:00" max="24:00" formControlName="OtEnd" >
+                                    <mat-error >Invalid OtEnds</mat-error>
+                                    <mat-hint align="end">Overtime starts at {{OtEndTime}}:00</mat-hint>
+                                </mat-form-field> <br>
+                            </div>
+                            <div class="inline-b" *ngIf="timesheetForm.value['isOtBreaktime']">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Overtime's Break start time</mat-label>
+                                    <input type="time" matInput name="time" min="18:00"  max="24:00" formControlName="BtOtStart" >
+                                    <mat-error >Invalid BtOtStart</mat-error>
+                                    <mat-hint align="end">Overtime's Break starts at {{BtOtStartTime}}:00</mat-hint>
+                                </mat-form-field>
+                                <br>
+                            
+                                <mat-error *ngIf="timesheetForm.errors?.['dateOrder']">Overtime's Break start time must be prior to End time</mat-error>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Overtime's Break end Time</mat-label>
+                                    <input type="time" matInput name="time" min="18:00" max="24:00" formControlName="BtOtEnd" >
+                                    <mat-error >Invalid BtOtEnds</mat-error>
+                                    <mat-hint align="end">Overtime's Break Ends at {{BtOtEndTime}}:00</mat-hint>
+                                </mat-form-field> <br>
+                               </div>
+                               <br>
+                               <mat-slide-toggle  (onchange)="onOtBreaktime()" formControlName="isOtBreaktime">Break Time</mat-slide-toggle>
+                               <br>
+                               <mat-error *ngIf="timesheetForm.errors?.['otDateOrder']">Overtime starts  time must be prior to  End time </mat-error>
+                                <mat-error *ngIf="timesheetForm.errors?.['dateOtBreakOrder']">Breaktime must be with OT Start and End</mat-error><br>
+                        </div>
+                        
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                    <br>
+                    
+                    <mat-divider></mat-divider><br>
+                    <mat-form-field appearance="fill" class="ml-2">
+                        <mat-label>Comment</mat-label>
+                        <textarea matInput formControlName="comment"></textarea>
+                    </mat-form-field>
+                    <br>
+                  
+                <button mat-raised-button color="primary" (click)="regTimesheet()">Update</button><br>
+                </div>
             </form>
-
+        
             <br>
-
+            <mat-divider></mat-divider><br>
             <div> <p>Selected date: {{selected | date}}</p>
 
                 <p>Selected date: </p>
@@ -29,13 +147,16 @@
 
                 </mat-form-field> -->
             </div >
-
-
+            <div class="border border-1 rounded shadow-sm" style="padding: 5%;">
+                
+                <button mat-raised-button color="primary" (click)="displayLog()">Display time</button><br>
+            </div>
+            
     </div>
+    
 
 
-
-    <div style="width: 40%;float: right">
+    <div style="width: 40%;float: right; padding-top: 1%;">
     <mat-card class="inline-calendar-card">
         <mat-calendar [(selected)]="selected" (selectedChange)="calChange($event)"></mat-calendar>
         </mat-card>

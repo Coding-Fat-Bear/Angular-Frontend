@@ -126,7 +126,7 @@ poapp(): void{
 }
 
 timesheet(): void{
-  window.location.href='http://192.168.0.10:8080/mavenspring/appscr?weblng=EN&emnum=1&bodybgc=%23F4F6F9&headbgc=%232a377b&tablinkbgc=%23555555&tabcontbgc=%235e849c&tablebgc=%23555555&ccd=JA01';
+  window.location.href='http://localhost:4200/timesheet/1/2022-12-17T00:00:00.000Z';
 }
 
 monthsheet(): void{

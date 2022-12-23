@@ -2,19 +2,19 @@
 
 export class Timesheet { 
     LOGINID:Number;
-    tsdate:Date;
-    checkin: Date;
-    checkout: Date;
+    tsdate:any;
+    checkin: any;
+    checkout: any;
     timeid : number;
     totalhours : number;
-    btstart : Date;
-    btend : Date;
-    breakflag : String;
-    comment : String;
-    otstart : Date;
-    otend : Date;
-    otbtstart : Date;
-    otbtend : Date;
-    daytype : String;
+    btstart : any;
+    btend : any;
+    breakflag : any;
+    comment : any;
+    otstart : any;
+    otend : any;
+    otbtstart : any;
+    otbtend : any;
+    daytype : any;
     cflag:boolean;
 } 
