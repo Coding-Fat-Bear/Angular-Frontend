@@ -34,8 +34,8 @@ export class TimesheetService {
     return this.httpClient.put<any>(`${this.baseUrl}/timesheet/update/${id}/${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}T00:00:00.000Z`,Timesheet)
   }
 
-  fetchByAllId(id:number):Observable<any>{
-    return this.httpClient.get<Timesheet[]>(`${this.baseUrl}/timesheet/fetchAll/${id}`)
+  fetchByAllId(id:number,month:number,year:number):Observable<any>{
+    return this.httpClient.get<Timesheet[]>(`${this.baseUrl}/timesheet/fetchAll/${id}/${month}/${year}`)
   }
 
 }

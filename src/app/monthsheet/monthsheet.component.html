@@ -1,0 +1,39 @@
+<button mat-raised-button color="primary" (click)="addRow()">Display time</button><br>
+
+
+<table class="table  table-bordered bg-white rounded">
+    <tr>
+      <th>Date</th>
+      <th>checkin</th>
+      <th>checkout</th>
+      <th>totalhours</th>
+      <th>btstart</th>
+      <th>btend</th>
+      <th>breakflag</th>
+      <th>comment</th>
+      <th>otstart</th>
+      <th>otend</th>
+      <th>otbtstart</th>
+      <th>otbtend</th>
+      <th>daytype</th>
+      <th>cflag</th>
+    </tr>
+    <tr *ngFor="let row of rowValue">
+      <td>{{ row.tsdate }}</td>
+      <td>{{ row.checkin }}</td>
+      <td>{{ row.checkout }}</td>
+      <td>{{ row.totalhours }}</td>
+      <td>{{ row.btstart }}</td>
+      <td>{{ row.btend }}</td>
+      <td>{{ row.breakflag }}</td>
+      <td>{{ row.comment }}</td>
+      <td>{{ row.otstart }}</td>
+      <td>{{ row.otend }}</td>
+      <td>{{ row.otbtstart }}</td>
+      <td>{{ row.otbtend }}</td>
+      <td>{{ row.daytype }}</td>
+      <td>{{ row.cflag }}</td>
+    </tr>
+  </table>
+
+  <p>Selected checkin: {{form.value | json}}</p>

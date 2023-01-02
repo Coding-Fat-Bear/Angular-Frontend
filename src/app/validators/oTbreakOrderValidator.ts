@@ -11,15 +11,15 @@ export function oTbreakOrderValidator(control: AbstractControl) {
     const date3 = timeToDate(BtOtStart?.value)
     const date4 = timeToDate(BtOtEnd?.value)
     
-    console.log(date1 );
-    console.log(date2 );
-    console.log(date3 );
-    console.log(date4 );
+    // console.log(date1 );
+    // console.log(date2 );
+    // console.log(date3 );
+    // console.log(date4 );
 
-    console.log(date3 >date1);
-    console.log(date2>date4);
-    console.log(date3 >date1 && date2>date4);
-    console.log(control.get('BtOtStart')?.touched &&control.get('BtOtEnd')?.touched );
+    // console.log(date3 >date1);
+    // console.log(date2>date4);
+    // console.log(date3 >date1 && date2>date4);
+    // console.log(control.get('BtOtStart')?.touched &&control.get('BtOtEnd')?.touched );
     
     
     if(control.get('BtOtStart')?.touched ||control.get('BtOtEnd')?.touched ){

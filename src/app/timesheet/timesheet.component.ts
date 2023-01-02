@@ -3,17 +3,18 @@ import { TimesheetService } from './../Services/timesheet.service';
 import {timeRangeValidator } from './../validators/timeRangeValidator';
 import {timeOrderValidator } from './../validators/timeOrderValidator';
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import { ActivatedRoute, ResolveEnd } from '@angular/router';
-import { timeToDate } from '../tools/timeToDate';
+import {FormBuilder, Validators} from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { timeToDate_Def } from '../tools/timeToDate_Def';
 import { dateToHM } from '../tools/dateToHM';
 import { breakOrderValidator} from '../validators/breakOrderValidator';
-import { otTimeOrderValidator } from '../validators/oTtimeOrderValidator';
+import { otTimeOrderValidator } from '../validators/otTimeOrderValidator';
 import { otTimeRangeValidator } from '../validators/otTimeRangeValidator';
 import { oTbreakOrderValidator } from '../validators/oTbreakOrderValidator';
 import { btTimeRangeValidator } from '../validators/btTimeRangeValidator';
 import { btOtTimeRangeValidator } from '../validators/btOtTimeRangeValidator';
+import { timesheetcalc } from '../Models/timesheetcalc.model';
+import { dateInterval } from '../tools/dateInterval';
 @Component({
   selector: 'app-timesheet',
   templateUrl: './timesheet.component.html',
@@ -21,11 +22,12 @@ import { btOtTimeRangeValidator } from '../validators/btOtTimeRangeValidator';
 })
 export class TimesheetComponent implements OnInit {
   /////////////initialization
-   selected = new Date();
+   selected :Date;
    is_create = true;
    res = new Timesheet()
-  timesheet = new Timesheet();
-  dayTypes = [
+   thc = new timesheetcalc();
+   timesheet = new Timesheet();
+   dayTypes = [
     {id:0,name:'none',type:'none'},
     {id:1,name:'AM Leave',type:'halffirs'},
     {id:2,name:'PM Leave',type:'halfseco'},
@@ -60,6 +62,7 @@ export class TimesheetComponent implements OnInit {
     checkout :  ['',[Validators.required,timeRangeValidator]],
     breakSkip : [false],
     comment : [''],
+    totalhours : [''],
     OtStart :['',[otTimeRangeValidator]],
     OtEnd :['',[otTimeRangeValidator]],
     isBreaktime :[false],
@@ -90,18 +93,32 @@ export class TimesheetComponent implements OnInit {
 
 ///////////////display button  -dev satge
   displayLog(){
-    console.log(this.timesheet);
-    // console.log(this.selected);
+    // console.log(this.timesheet);
+    // console.log(timeToDate_Def(this.selected,this.timesheetForm.get('checkin')?.value));
+    // this.thc.checkin = timeToDate_Def(this.selected,this.timesheetForm.get('checkin')?.value);
+    // this.thc.checkout = timeToDate_Def(this.selected,this.timesheetForm.get('checkout')?.value);
+    // this.thc.otstart = timeToDate_Def(this.selected,this.timesheetForm.get('OtStart')?.value);
+    // this.thc.otend = timeToDate_Def(this.selected,this.timesheetForm.get('OtEnd')?.value);
+    // this.thc.otbtstart = timeToDate_Def(this.selected,this.timesheetForm.get('BtOtStart')?.value);
+    // this.thc.otbtend = timeToDate_Def(this.selected,this.timesheetForm.get('BtOtEnd')?.value);
+    // this.thc.btstart = timeToDate_Def(this.selected,this.timesheetForm.get('BtStart')?.value);
+    // this.thc.btend = timeToDate_Def(this.selected,this.timesheetForm.get('BtEnd')?.value);
+    // console.log();
+    // console.log((dateInterval(this.thc.checkin,this.thc.checkout)+dateInterval(this.thc.otstart,this.thc.otend)-
+    // dateInterval(this.thc.btstart,this.thc.btend)-dateInterval(this.thc.otbtstart,this.thc.otbtend))/(1000*60*60));
+    console.log(this.totalhourCal());
+    
+    
     // console.log(JSON.stringify(this.timesheet));
     // console.log(this.timesheetForm.errors);
-    console.log(this.is_create);
-    console.log(this.selected.getMonth()+1);
+    // console.log(this.is_create);
+    // console.log(this.selected.getMonth()+1);
     
-    console.log((this.selected.getMonth()+1)<10?"0"+(this.selected.getMonth()+1):this.selected.getMonth()+1);
-    const month = (this.selected.getMonth()+1)<10?"0"+this.selected.getMonth()+1:this.selected.getMonth()+1;
+    // console.log((this.selected.getMonth()+1)<10?"0"+(this.selected.getMonth()+1):this.selected.getMonth()+1);
+    // const month = (this.selected.getMonth()+1)<10?"0"+this.selected.getMonth()+1:this.selected.getMonth()+1;
     
-    console.log( (this.selected.getDate())<10?"0"+this.selected.getDate():this.selected.getDate());
-    const date_v = (this.selected.getDate())<10?"0"+this.selected.getDate():this.selected.getDate();
+    // console.log( (this.selected.getDate())<10?"0"+this.selected.getDate():this.selected.getDate());
+    // const date_v = (this.selected.getDate())<10?"0"+this.selected.getDate():this.selected.getDate();
   }
 
 
@@ -132,6 +149,7 @@ export class TimesheetComponent implements OnInit {
         !(this.timesheet.otbtend)?this.timesheetForm.get('BtOtEnd')?.setValue(""):this.timesheetForm.get('BtOtEnd')?.setValue(dateToHM(this.timesheet.otbtend));
         !(this.timesheet.btstart)?this.timesheetForm.get('BtStart')?.setValue(""):this.timesheetForm.get('BtStart')?.setValue(dateToHM(this.timesheet.btstart));
         !(this.timesheet.btend)?this.timesheetForm.get('BtEnd')?.setValue(""):this.timesheetForm.get('BtEnd')?.setValue(dateToHM(this.timesheet.btend));
+        !(this.timesheet.totalhours)?this.timesheetForm.get('totalhours')?.setValue(""):this.timesheetForm.get('totalhours')?.setValue(dateToHM(this.timesheet.totalhours));
         if (data.hasOwnProperty("error")) {
         this.is_create = true
       } else {
@@ -185,6 +203,7 @@ export class TimesheetComponent implements OnInit {
     this.selected.setMinutes(0);
     this.selected.setHours(9);
     this.res.tsdate = this.selected.toJSON();
+    this.res.totalhours = this.totalhourCal();
     this.res.daytype = this.timesheetForm.get('dayType')?.value;
     console.log(this.res);
     if (this.is_create) {
@@ -201,6 +220,21 @@ export class TimesheetComponent implements OnInit {
    
     
   }
+  totalhourCal(){
+    this.thc.checkin = timeToDate_Def(this.selected,this.timesheetForm.get('checkin')?.value);
+    this.thc.checkout = timeToDate_Def(this.selected,this.timesheetForm.get('checkout')?.value);
+    this.thc.otstart = timeToDate_Def(this.selected,this.timesheetForm.get('OtStart')?.value);
+    this.thc.otend = timeToDate_Def(this.selected,this.timesheetForm.get('OtEnd')?.value);
+    this.thc.otbtstart = timeToDate_Def(this.selected,this.timesheetForm.get('BtOtStart')?.value);
+    this.thc.otbtend = timeToDate_Def(this.selected,this.timesheetForm.get('BtOtEnd')?.value);
+    this.thc.btstart = timeToDate_Def(this.selected,this.timesheetForm.get('BtStart')?.value);
+    this.thc.btend = timeToDate_Def(this.selected,this.timesheetForm.get('BtEnd')?.value);
+    return (dateInterval(this.thc.checkin,this.thc.checkout)+dateInterval(this.thc.otstart,this.thc.otend)-
+    dateInterval(this.thc.btstart,this.thc.btend)-dateInterval(this.thc.otbtstart,this.thc.otbtend))/(1000*60*60)
+    
+    // this.thc.totalhours = this.thc.checkin + 
+  }
+  
   cusbtcheck():boolean {return true}
   cusotbtcheck():boolean {return true}
   cusotcheck():boolean {return true}

@@ -10,12 +10,14 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import {ReactiveFormsModule } from '@angular/forms';
+import { MonthsheetComponent } from './monthsheet/monthsheet.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     TimesheetComponent,
-    HomeComponent
+    HomeComponent,
+    MonthsheetComponent
   ],
   imports: [
     BrowserModule,

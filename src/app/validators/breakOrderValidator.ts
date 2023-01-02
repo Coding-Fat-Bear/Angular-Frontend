@@ -11,15 +11,15 @@ export function breakOrderValidator(control: AbstractControl) {
     const date3 = timeToDate(BtStart?.value)
     const date4 = timeToDate(BtEnd?.value)
     
-    console.log(date1 );
-    console.log(date2 );
-    console.log(date3 );
-    console.log(date4 );
+    // console.log(date1 );
+    // console.log(date2 );
+    // console.log(date3 );
+    // console.log(date4 );
 
-    console.log(date3 >date1);
-    console.log(date2>date4);
-    console.log(date3 >date1 && date2>date4);
-    console.log(control.get('BtStart')?.touched &&control.get('BtEnd')?.touched );
+    // console.log(date3 >date1);
+    // console.log(date2>date4);
+    // console.log(date3 >date1 && date2>date4);
+    // console.log(control.get('BtStart')?.touched &&control.get('BtEnd')?.touched );
     
     
     if(control.get('BtStart')?.touched ||control.get('BtEnd')?.touched ){
