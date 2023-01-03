@@ -1,6 +1,6 @@
 <button mat-raised-button color="primary" (click)="addRow()">Display time</button><br>
 
-
+<form [formGroup]="form">
 <table class="table  table-bordered bg-white rounded">
     <tr>
       <th>Date</th>
@@ -18,22 +18,25 @@
       <th>daytype</th>
       <th>cflag</th>
     </tr>
-    <tr *ngFor="let row of rowValue">
-      <td>{{ row.tsdate }}</td>
-      <td>{{ row.checkin }}</td>
-      <td>{{ row.checkout }}</td>
-      <td>{{ row.totalhours }}</td>
-      <td>{{ row.btstart }}</td>
-      <td>{{ row.btend }}</td>
-      <td>{{ row.breakflag }}</td>
-      <td>{{ row.comment }}</td>
-      <td>{{ row.otstart }}</td>
-      <td>{{ row.otend }}</td>
-      <td>{{ row.otbtstart }}</td>
-      <td>{{ row.otbtend }}</td>
-      <td>{{ row.daytype }}</td>
-      <td>{{ row.cflag }}</td>
-    </tr>
+    <tbody formArrayName="row">
+      <tr *ngFor="let row of rowValue ; let i=index;"[formGroupName]="i">
+            <td>{{ row.tsdate }}</td>
+            <td>{{ row.checkin }}</td>
+            <td>{{ row.checkout }}</td>
+            <td>{{ row.totalhours }}</td>
+            <td>{{ row.btstart }}</td>
+            <td>{{ row.btend }}</td>
+            <td>{{ row.breakflag }}</td>
+            <td><textarea matInput formControlName="comment" class="form-control"></textarea></td>
+            <td>{{ row.otstart }}</td>
+            <td>{{ row.otend }}</td>
+            <td>{{ row.otbtstart }}</td>
+            <td>{{ row.otbtend }}</td>
+            <td>{{ row.daytype }}</td>
+            <td>{{ row.cflag }}</td>
+      </tr>
+    </tbody>
+    
   </table>
-
+</form>
   <p>Selected checkin: {{form.value | json}}</p>
