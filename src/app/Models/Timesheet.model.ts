@@ -1,7 +1,7 @@
 
 
 export class Timesheet { 
-    LOGINID:Number;
+    LOGINID:number;
     tsdate:any;
     checkin: any;
     checkout: any;

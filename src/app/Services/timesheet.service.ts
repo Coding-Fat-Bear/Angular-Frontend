@@ -19,7 +19,7 @@ export class TimesheetService {
 
 
     console.log(`${this.baseUrl}/timesheet/update/${id}/${date.getFullYear()}-${month}-${date_v}T00:00:00.000Z`);
-    return this.httpClient.get<Timesheet>(`${this.baseUrl}/timesheet/fetch/${id}/${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}T00:00:00.000Z`);
+    return this.httpClient.get<Timesheet>(`${this.baseUrl}/timesheet/fetch/${id}/${date.getFullYear()}-${month}-${date_v}T00:00:00.000Z`);
   }
 
   createById(Timesheet:Timesheet,id:number):Observable<any>{
@@ -28,14 +28,19 @@ export class TimesheetService {
 
   updateById(Timesheet:Timesheet,id:Number,date:Date):Observable<any>{
     console.log("service");
+    // console.log(date);
     
-    console.log(`${this.baseUrl}/timesheet/update/${id}/${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}T00:00:00.000Z`);
+    const month = (date.getMonth()+1)<10?"0"+(date.getMonth()+1):date.getMonth()+1;
+    const date_v = (date.getDate())<10?"0"+date.getDate():date.getDate();
+    // console.log(`${this.baseUrl}/timesheet/update/${id}/${date.getFullYear()}-${month}-${date_v}T00:00:00.000Z`);
+    // console.log(Timesheet);
     
-    return this.httpClient.put<any>(`${this.baseUrl}/timesheet/update/${id}/${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}T00:00:00.000Z`,Timesheet)
+    return this.httpClient.put<any>(`${this.baseUrl}/timesheet/update/${id}/${date.getFullYear()}-${month}-${date_v}T00:00:00.000Z`,Timesheet)
   }
 
   fetchByAllId(id:number,month:number,year:number):Observable<any>{
     return this.httpClient.get<Timesheet[]>(`${this.baseUrl}/timesheet/fetchAll/${id}/${month}/${year}`)
   }
+  
 
 }

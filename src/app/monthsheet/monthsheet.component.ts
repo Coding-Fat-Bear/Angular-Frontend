@@ -1,3 +1,4 @@
+import { Login } from './../Models/login.model';
 import { Timesheet } from './../Models/Timesheet.model';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -5,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { TimesheetService } from './../Services/timesheet.service';
 import { dateToHM } from '../tools/dateToHM';
+import { timeToDate_Def } from '../tools/timeToDate_Def';
 @Component({
   selector: 'app-monthsheet',
   templateUrl: './monthsheet.component.html',
@@ -15,6 +17,7 @@ export class MonthsheetComponent implements OnInit {
   id: number ;
   month : number;
   year : number;
+  res = new Timesheet();
   timesheets: Array<Timesheet> = [];
   daysInMonth : number;
   form = this.fb.group({
@@ -40,7 +43,7 @@ export class MonthsheetComponent implements OnInit {
         
         timesheet.tsdate  = timesheet_d.tsdate.toISOString();
         this.timesheets.push({
-          LOGINID: this.id,
+          LOGINID: Number(this.id),
           tsdate: timesheet.tsdate,
           checkin: undefined,
           checkout: undefined,
@@ -81,9 +84,10 @@ export class MonthsheetComponent implements OnInit {
   }
   addRow() {
     this.timesheets.forEach((element: Timesheet) => {
-      console.log(element.tsdate);
-      console.log(element.totalhours);
+      // console.log(element.tsdate);
+      // console.log(element.totalhours);
       const rowForm = this.fb.group({
+        LOGINID :[0],
         tsdate :[''],
         dayType : ['none'],
         checkin :  [''],
@@ -100,7 +104,7 @@ export class MonthsheetComponent implements OnInit {
         BtStart :[''],
         BtEnd :['']
         });
-
+        !(element.LOGINID)?rowForm.get('LOGINID')?.setValue(0):rowForm.get('LOGINID')?.setValue(element.LOGINID);
         !(element.tsdate)?rowForm.get('tsdate')?.setValue(""):rowForm.get('tsdate')?.setValue(element.tsdate);
         !(element.checkin)?rowForm.get('checkin')?.setValue(""):rowForm.get('checkin')?.setValue(dateToHM(element.checkin));
         !(element.checkout)?rowForm.get('checkout')?.setValue(""):rowForm.get('checkout')?.setValue(dateToHM(element.checkout));
@@ -117,11 +121,52 @@ export class MonthsheetComponent implements OnInit {
 
         this.row.push(rowForm);
     });
-    console.log(this.rowValue);
+    
     
   }
 
   get rowValue(): any[] {
     return this.row.value;
+  } 
+
+  get rowArray(){
+    return this.form.get('row') as FormArray;
+  }
+  display(){
+    this.row.value.forEach((element: any) => {
+      if (element.checkin) {
+        const t_date = new Date(element.tsdate);
+        this.res.LOGINID = element.LOGINID;
+        this.res.tsdate = element.tsdate;
+
+        if(element.checkin){this.res.checkin = timeToDate_Def(t_date,element.checkin).toJSON;}
+        if(element.checkout){this.res.checkout = timeToDate_Def(t_date,element.checkout).toJSON;}
+
+        if(element.otstart){this.res.otstart = timeToDate_Def(t_date,element.otstart).toJSON;}
+        if(element.otend){this.res.otend = timeToDate_Def(t_date,element.otend).toJSON;}
+
+        if(element.btstart){this.res.btstart = timeToDate_Def(t_date,element.btstart).toJSON;}
+        if(element.btend){this.res.btend = timeToDate_Def(t_date,element.btend).toJSON;}
+
+        if(element.otbtstart){this.res.otbtstart = timeToDate_Def(t_date,element.otbtstart).toJSON;}
+        if(element.otbtend){this.res.otbtend = timeToDate_Def(t_date,element.otbtend).toJSON;}
+
+        this.res.breakflag = element.breakflag;
+        this.res.comment = element.comment;
+        this.res.totalhours = element.totalhours;
+        this.res.daytype = element.daytype;
+        this.res.timeid = element.timeid;
+        this.res.cflag = element.cflag;
+        console.log(this.res);
+
+        this.TimesheetService.updateById(this.res,this.route.snapshot.params['id'],t_date).subscribe(data=>{
+          console.log(data);
+        })
+      }
+      
+      
+    });
+    // console.log(this.rowValue);
+    
   }
 }

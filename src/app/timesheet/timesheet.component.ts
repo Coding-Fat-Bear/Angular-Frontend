@@ -24,7 +24,7 @@ export class TimesheetComponent implements OnInit {
   /////////////initialization
    selected :Date;
    is_create = true;
-   res = new Timesheet()
+   res = new Timesheet();
    thc = new timesheetcalc();
    timesheet = new Timesheet();
    dayTypes = [
@@ -106,7 +106,12 @@ export class TimesheetComponent implements OnInit {
     // console.log();
     // console.log((dateInterval(this.thc.checkin,this.thc.checkout)+dateInterval(this.thc.otstart,this.thc.otend)-
     // dateInterval(this.thc.btstart,this.thc.btend)-dateInterval(this.thc.otbtstart,this.thc.otbtend))/(1000*60*60));
-    console.log(this.totalhourCal());
+    // console.log(this.totalhourCal());
+    // console.log(this.is_create);
+
+    console.log(this.res);
+      console.log(this.selected);
+    
     
     
     // console.log(JSON.stringify(this.timesheet));
@@ -212,6 +217,8 @@ export class TimesheetComponent implements OnInit {
       })
 
     } else {
+      
+      
       this.TimesheetService.updateById(this.res,this.route.snapshot.params['id'],this.selected).subscribe(data=>{
         console.log(data);
       })

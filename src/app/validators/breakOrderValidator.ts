@@ -24,17 +24,17 @@ export function breakOrderValidator(control: AbstractControl) {
     
     if(control.get('BtStart')?.touched ||control.get('BtEnd')?.touched ){
         if(date3 >date1 && date2>date4){
-            console.log(3);
+            // console.log(3);
             return null
             
         }else{
-            console.log(2);
+            // console.log(2);
             
             return {dateBreakOrder: true}
         }
     }
     else{
-        console.log(1);
+        // console.log(1);
         return null
     }
     
