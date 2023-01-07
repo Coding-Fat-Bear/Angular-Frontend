@@ -26,9 +26,9 @@
             <td>{{ row.get('totalhours')?.value }}</td>
             <td>{{ row.get('btstart')?.value }}</td>
             <td>{{ row.get('btend')?.value }}</td>
-            <td>{{ row.get('breakflag')?.value }}</td>
-            <td><input class="form-control" type="text" formControlName="comment"/></td>
-            <!-- <td><textarea matInput formControlName="comment" class="form-control"></textarea></td> -->
+            <!-- <td><mat-checkbox formControlName="breakflag" class="form-control"></mat-checkbox></td> -->
+            <td><input type="checkbox" formControlName="breakflag" class="form-control" ></td>
+            <td><textarea matInput formControlName="comment" class="form-control"></textarea></td>
             <td>{{ row.get('otstart')?.value }}</td>
             <td>{{ row.get('otend')?.value }}</td>
             <td>{{ row.get('otbtstart')?.value }}</td>

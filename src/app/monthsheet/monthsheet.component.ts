@@ -20,6 +20,8 @@ export class MonthsheetComponent implements OnInit {
   res = new Timesheet();
   timesheets: Array<Timesheet> = [];
   daysInMonth : number;
+  
+
   form = this.fb.group({
     row: this.fb.array([])
 });
@@ -51,7 +53,7 @@ export class MonthsheetComponent implements OnInit {
           totalhours: 0,
           btstart: undefined,
           btend: undefined,
-          breakflag: undefined,
+          breakflag: false,
           comment: undefined,
           otstart: undefined,
           otend: undefined,
@@ -92,7 +94,7 @@ export class MonthsheetComponent implements OnInit {
         dayType : ['none'],
         checkin :  [''],
         checkout :  [''],
-        breakSkip : [false],
+        breakflag : [true],
         comment : [''],
         totalhours : [0],
         OtStart :[''],
@@ -109,7 +111,7 @@ export class MonthsheetComponent implements OnInit {
         !(element.checkin)?rowForm.get('checkin')?.setValue(""):rowForm.get('checkin')?.setValue(dateToHM(element.checkin));
         !(element.checkout)?rowForm.get('checkout')?.setValue(""):rowForm.get('checkout')?.setValue(dateToHM(element.checkout));
         !(element.daytype)?rowForm.get('dayType')?.setValue("none"):rowForm.get('dayType')?.setValue((element.daytype));
-        !(element.breakflag)?rowForm.get('breakSkip')?.setValue(false):rowForm.get('breakSkip')?.setValue((element.breakflag));
+        !(element.breakflag)?rowForm.get('breakflag')?.setValue(false):rowForm.get('breakflag')?.setValue((element.breakflag));
         !(element.comment)?rowForm.get('comment')?.setValue(""):rowForm.get('comment')?.setValue((element.comment));
         !(element.otstart)?rowForm.get('OtStart')?.setValue(""):rowForm.get('OtStart')?.setValue(dateToHM(element.otstart));
         !(element.otend)?rowForm.get('OtEnd')?.setValue(""):rowForm.get('OtEnd')?.setValue(dateToHM(element.otend));
@@ -122,7 +124,21 @@ export class MonthsheetComponent implements OnInit {
         this.row.push(rowForm);
     });
     
-    
+    const rowArray = this.form.get('row') as FormArray;
+    this.rowArray.valueChanges.subscribe(rows => {
+      rows.forEach((row: { breakflag: any; }, index: number) => {
+        if (row.breakflag) {
+          // update data in form array for this row
+          // row.breakflag = !(row.breakflag );
+          console.log(row.breakflag);
+          
+          console.log('chnaged'+index);
+          
+        } else {
+          // update data in form array for this row
+        }
+      });
+    });
   }
 
   get rowValue(): any[] {
@@ -133,6 +149,9 @@ export class MonthsheetComponent implements OnInit {
     return this.form.get('row') as FormArray;
   }
   display(){
+    
+    
+
     this.row.value.forEach((element: any) => {
       if (element.checkin) {
         const t_date = new Date(element.tsdate);
@@ -167,6 +186,7 @@ export class MonthsheetComponent implements OnInit {
       
     });
     // console.log(this.rowValue);
+  
     
   }
 }

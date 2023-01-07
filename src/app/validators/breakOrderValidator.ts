@@ -10,25 +10,28 @@ export function breakOrderValidator(control: AbstractControl) {
     const date2 = timeToDate(checkout?.value)
     const date3 = timeToDate(BtStart?.value)
     const date4 = timeToDate(BtEnd?.value)
-    
-    // console.log(date1 );
-    // console.log(date2 );
-    // console.log(date3 );
-    // console.log(date4 );
+    let btstartvalue = false;
+    let btendvalue = false;
 
-    // console.log(date3 >date1);
-    // console.log(date2>date4);
-    // console.log(date3 >date1 && date2>date4);
-    // console.log(control.get('BtStart')?.touched &&control.get('BtEnd')?.touched );
+    if(control.get('BtStart')?.value =="" ){
+        btstartvalue = false
+        
+    }else{btstartvalue = true}
+
+    // console.log(btstartvalue);
+    if(control.get('BtEnd')?.value ==""){
+        btendvalue = false;
+    }else{ btendvalue = true;}
     
     
-    if(control.get('BtStart')?.touched ||control.get('BtEnd')?.touched ){
+    
+    if(( control.get('BtStart')?.dirty  ||control.get('BtEnd')?.dirty) && ( control.get('BtStart')?.touched  ||control.get('BtEnd')?.touched) && (btstartvalue  || btendvalue) ){
         if(date3 >date1 && date2>date4){
             // console.log(3);
             return null
             
         }else{
-            // console.log(2);
+            // console.log(2);//
             
             return {dateBreakOrder: true}
         }

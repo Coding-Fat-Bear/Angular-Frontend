@@ -11,18 +11,22 @@ export function oTbreakOrderValidator(control: AbstractControl) {
     const date3 = timeToDate(BtOtStart?.value)
     const date4 = timeToDate(BtOtEnd?.value)
     
-    // console.log(date1 );
-    // console.log(date2 );
-    // console.log(date3 );
-    // console.log(date4 );
+    let btotstartvalue = false;
+    let btotendvalue = false;
 
-    // console.log(date3 >date1);
-    // console.log(date2>date4);
-    // console.log(date3 >date1 && date2>date4);
-    // console.log(control.get('BtOtStart')?.touched &&control.get('BtOtEnd')?.touched );
+    if(control.get('BtOtStart')?.value =="" ){
+        btotstartvalue = false
+        // console.log("has no value start");
+        
+    }else{btotstartvalue = true}
+
+    if(control.get('BtOtEnd')?.value ==""){
+        btotendvalue = false;
+        // console.log("has no value end");
+    }else{ btotendvalue = true;}
     
     
-    if(control.get('BtOtStart')?.touched ||control.get('BtOtEnd')?.touched ){
+    if((control.get('BtOtStart')?.dirty ||control.get('BtOtEnd')?.dirty ) && (control.get('BtOtStart')?.touched ||control.get('BtOtEnd')?.touched ) && (btotstartvalue  || btotendvalue)){
         if(date3 >date1 && date2>date4){
             // console.log(3);
             return null

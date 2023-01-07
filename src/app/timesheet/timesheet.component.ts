@@ -15,6 +15,7 @@ import { btTimeRangeValidator } from '../validators/btTimeRangeValidator';
 import { btOtTimeRangeValidator } from '../validators/btOtTimeRangeValidator';
 import { timesheetcalc } from '../Models/timesheetcalc.model';
 import { dateInterval } from '../tools/dateInterval';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-timesheet',
   templateUrl: './timesheet.component.html',
@@ -27,6 +28,7 @@ export class TimesheetComponent implements OnInit {
    res = new Timesheet();
    thc = new timesheetcalc();
    timesheet = new Timesheet();
+   snack = "Nothing Updated";
    dayTypes = [
     {id:0,name:'none',type:'none'},
     {id:1,name:'AM Leave',type:'halffirs'},
@@ -60,7 +62,7 @@ export class TimesheetComponent implements OnInit {
     dayType : ['none'],
     checkin :  ['',[Validators.required,timeRangeValidator]],
     checkout :  ['',[Validators.required,timeRangeValidator]],
-    breakSkip : [false],
+    breakflag : [false],
     comment : [''],
     totalhours : [''],
     OtStart :['',[otTimeRangeValidator]],
@@ -76,7 +78,8 @@ export class TimesheetComponent implements OnInit {
   //////////constructor
   constructor(private TimesheetService:TimesheetService,
     private route :ActivatedRoute,
-    private fb : FormBuilder
+    private fb : FormBuilder,
+    private _snackBar: MatSnackBar
     ) {
 
   }
@@ -93,37 +96,13 @@ export class TimesheetComponent implements OnInit {
 
 ///////////////display button  -dev satge
   displayLog(){
-    // console.log(this.timesheet);
-    // console.log(timeToDate_Def(this.selected,this.timesheetForm.get('checkin')?.value));
-    // this.thc.checkin = timeToDate_Def(this.selected,this.timesheetForm.get('checkin')?.value);
-    // this.thc.checkout = timeToDate_Def(this.selected,this.timesheetForm.get('checkout')?.value);
-    // this.thc.otstart = timeToDate_Def(this.selected,this.timesheetForm.get('OtStart')?.value);
-    // this.thc.otend = timeToDate_Def(this.selected,this.timesheetForm.get('OtEnd')?.value);
-    // this.thc.otbtstart = timeToDate_Def(this.selected,this.timesheetForm.get('BtOtStart')?.value);
-    // this.thc.otbtend = timeToDate_Def(this.selected,this.timesheetForm.get('BtOtEnd')?.value);
-    // this.thc.btstart = timeToDate_Def(this.selected,this.timesheetForm.get('BtStart')?.value);
-    // this.thc.btend = timeToDate_Def(this.selected,this.timesheetForm.get('BtEnd')?.value);
-    // console.log();
-    // console.log((dateInterval(this.thc.checkin,this.thc.checkout)+dateInterval(this.thc.otstart,this.thc.otend)-
-    // dateInterval(this.thc.btstart,this.thc.btend)-dateInterval(this.thc.otbtstart,this.thc.otbtend))/(1000*60*60));
-    // console.log(this.totalhourCal());
-    // console.log(this.is_create);
 
-    console.log(this.res);
-      console.log(this.selected);
-    
-    
-    
-    // console.log(JSON.stringify(this.timesheet));
-    // console.log(this.timesheetForm.errors);
-    // console.log(this.is_create);
-    // console.log(this.selected.getMonth()+1);
-    
-    // console.log((this.selected.getMonth()+1)<10?"0"+(this.selected.getMonth()+1):this.selected.getMonth()+1);
-    // const month = (this.selected.getMonth()+1)<10?"0"+this.selected.getMonth()+1:this.selected.getMonth()+1;
-    
-    // console.log( (this.selected.getDate())<10?"0"+this.selected.getDate():this.selected.getDate());
-    // const date_v = (this.selected.getDate())<10?"0"+this.selected.getDate():this.selected.getDate();
+   console.log (this.timesheetForm.get('BtEnd')?.untouched);
+   console.log (this.timesheetForm.get('BtEnd')?.untouched);
+    // this.timesheetForm.get('BtEnd')?.markAsUntouched();
+    // console.log(this.res);
+    //   console.log(this.selected);
+
   }
 
 
@@ -146,7 +125,7 @@ export class TimesheetComponent implements OnInit {
         !(this.timesheet.checkin)?this.timesheetForm.get('checkin')?.setValue(""):this.timesheetForm.get('checkin')?.setValue(dateToHM(this.timesheet.checkin));
         !(this.timesheet.checkout)?this.timesheetForm.get('checkout')?.setValue(""):this.timesheetForm.get('checkout')?.setValue(dateToHM(this.timesheet.checkout));
         !(this.timesheet.daytype)?this.timesheetForm.get('dayType')?.setValue("none"):this.timesheetForm.get('dayType')?.setValue((this.timesheet.daytype));
-        !(this.timesheet.breakflag)?this.timesheetForm.get('breakSkip')?.setValue(false):this.timesheetForm.get('breakSkip')?.setValue((this.timesheet.breakflag));
+        !(this.timesheet.breakflag)?this.timesheetForm.get('breakflag')?.setValue(false):this.timesheetForm.get('breakflag')?.setValue((this.timesheet.breakflag));
         !(this.timesheet.comment)?this.timesheetForm.get('comment')?.setValue(""):this.timesheetForm.get('comment')?.setValue((this.timesheet.comment));
         !(this.timesheet.otstart)?this.timesheetForm.get('OtStart')?.setValue(""):this.timesheetForm.get('OtStart')?.setValue(dateToHM(this.timesheet.otstart));
         !(this.timesheet.otend)?this.timesheetForm.get('OtEnd')?.setValue(""):this.timesheetForm.get('OtEnd')?.setValue(dateToHM(this.timesheet.otend));
@@ -170,38 +149,46 @@ export class TimesheetComponent implements OnInit {
     this.selected.setMilliseconds(0);
     this.selected.setMinutes(0);
     this.selected.setSeconds(0);
+    // this.timesheetForm.get('BtEnd')?.markAsUntouched();
+    // this.timesheetForm.get('BtEnd')?.markAsUntouched();
+    // this.timesheetForm.get('BtEnd')?.markAsUntouched();
+    // this.timesheetForm.get('BtEnd')?.markAsUntouched();
+    // this.timesheetForm.get('BtEnd')?.markAsUntouched();
+    // this.timesheetForm.get('BtEnd')?.markAsUntouched();
+    // this.timesheetForm.get('BtEnd')?.markAsUntouched();
+    const form = this.timesheetForm;
+    for (const control in form.controls) {
+      if (form.controls.hasOwnProperty(control)) {
+        form.controls[control].markAsUntouched();
+      }
+    }
    this.fetchTimesheet(1,this.selected);
   }
 
   onBreaktime(){
-    console.log(this.timesheetForm.get('isBreaktime')?.value);
+    // console.log(this.timesheetForm.get('isBreaktime')?.value);
     this.timesheetForm.get('isBreaktime')?.setValue(!this.timesheetForm.get('isBreaktime')?.value)
-    console.log(this.timesheetForm.get('isBreaktime')?.value);
+    // console.log(this.timesheetForm.get('isBreaktime')?.value);
     
   }
 
   onOtBreaktime(){
-    console.log(this.timesheetForm.get('isOtBreaktime')?.value);
+    // console.log(this.timesheetForm.get('isOtBreaktime')?.value);
     this.timesheetForm.get('isOTBreaktime')?.setValue(!this.timesheetForm.get('isOTBreaktime')?.value)
-    console.log(this.timesheetForm.get('isOTBreaktime')?.value);
+    // console.log(this.timesheetForm.get('isOTBreaktime')?.value);
     
   }
   regTimesheet(){
-    // console.log(this.timesheetForm.get('checkin')?.value);
     this.res.LOGINID = this.route.snapshot.params['id'];
     this.res.checkin = !(this.timesheetForm.get('checkin')?.value)?null:timeToDate_Def(this.selected,this.timesheetForm.get('checkin')?.value).toJSON();
-    this.res.checkout =  !(this.timesheetForm.get('checkout')?.value)?null:timeToDate_Def(this.selected,this.timesheetForm.get('checkout')?.value).toJSON();
-    // console.log(!(this.timesheetForm.get('checkin')?.value)?null:timeToDate(this.timesheetForm.get('checkin')?.value).toJSON());
-    
+    this.res.checkout =  !(this.timesheetForm.get('checkout')?.value)?null:timeToDate_Def(this.selected,this.timesheetForm.get('checkout')?.value).toJSON();   
     this.res.btstart = !(this.timesheetForm.get('BtStart')?.value)?null:timeToDate_Def(this.selected,this.timesheetForm.get('BtStart')?.value).toJSON();
     this.res.btend= !(this.timesheetForm.get('BtEnd')?.value)?null:timeToDate_Def(this.selected,this.timesheetForm.get('BtEnd')?.value).toJSON();
-
     this.res.otstart = !(this.timesheetForm.get('OtStart')?.value)?null:timeToDate_Def(this.selected,this.timesheetForm.get('OtStart')?.value).toJSON();
     this.res.otend = !(this.timesheetForm.get('OtEnd')?.value)?null:timeToDate_Def(this.selected,this.timesheetForm.get('OtEnd')?.value).toJSON();
-
     this.res.otbtstart = !(this.timesheetForm.get('BtOtStart')?.value)?null:timeToDate_Def(this.selected,this.timesheetForm.get('BtOtStart')?.value).toJSON();
     this.res.otbtend = !(this.timesheetForm.get('BtOtEnd')?.value)?null:timeToDate_Def(this.selected,this.timesheetForm.get('BtOtEnd')?.value).toJSON();
-    this.res.breakflag = this.timesheetForm.get('breakSkip')?.value;
+    this.res.breakflag = this.timesheetForm.get('breakflag')?.value;
     this.res.comment = this.timesheetForm.get('comment')?.value;
     this.selected.setMilliseconds(0);
     this.selected.setSeconds(0);
@@ -211,16 +198,19 @@ export class TimesheetComponent implements OnInit {
     this.res.totalhours = this.totalhourCal();
     this.res.daytype = this.timesheetForm.get('dayType')?.value;
     console.log(this.res);
+
     if (this.is_create) {
       this.TimesheetService.createById(this.res,this.route.snapshot.params['id']).subscribe(data=>{
         console.log(data);
       })
 
     } else {
-      
-      
       this.TimesheetService.updateById(this.res,this.route.snapshot.params['id'],this.selected).subscribe(data=>{
-        console.log(data);
+        if (data[0]== 0) {
+          this.snack = "Updated";
+        } else {
+          this.snack = "Nothing Updated";
+        }
       })
     }
     
@@ -236,12 +226,19 @@ export class TimesheetComponent implements OnInit {
     this.thc.otbtend = timeToDate_Def(this.selected,this.timesheetForm.get('BtOtEnd')?.value);
     this.thc.btstart = timeToDate_Def(this.selected,this.timesheetForm.get('BtStart')?.value);
     this.thc.btend = timeToDate_Def(this.selected,this.timesheetForm.get('BtEnd')?.value);
+    let break_took = 3600000;
+    if(this.timesheetForm.get('breakflag')?.value == true){
+      break_took = 0;
+    }
     return (dateInterval(this.thc.checkin,this.thc.checkout)+dateInterval(this.thc.otstart,this.thc.otend)-
-    dateInterval(this.thc.btstart,this.thc.btend)-dateInterval(this.thc.otbtstart,this.thc.otbtend))/(1000*60*60)
+    dateInterval(this.thc.btstart,this.thc.btend)-dateInterval(this.thc.otbtstart,this.thc.otbtend)-break_took)/(1000*60*60)
     
     // this.thc.totalhours = this.thc.checkin + 
   }
-  
+  openSnackBar() {
+    this._snackBar.open(this.snack,"ok");
+  }
+
   cusbtcheck():boolean {return true}
   cusotbtcheck():boolean {return true}
   cusotcheck():boolean {return true}

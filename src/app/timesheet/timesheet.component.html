@@ -1,7 +1,8 @@
 
 <div style="width: 55%;float: left; padding-left: 5%;padding-top: 1%;">
-    <div class="form-group">
-        
+
+    <button mat-raised-button color="primary" (click)="displayLog();">Display time</button><br>
+    <div class="form-group">       
             <form [formGroup]="timesheetForm">
                 <div class="border border-1 rounded shadow-sm" style="padding: 5%;">
                     <mat-card>
@@ -55,7 +56,7 @@
                         
                         <br>
                         <mat-error *ngIf="timesheetForm.errors?.['dateBreakOrder']">Breaktime must be with Checkin and out</mat-error><br>
-                        <mat-checkbox formControlName="breakSkip" color="primary" class="ml-1">Break skipped</mat-checkbox><br>
+                        <mat-checkbox formControlName="breakflag" color="primary" class="ml-1">Break skipped</mat-checkbox><br>
                        <mat-slide-toggle  (onchange)="onBreaktime()" formControlName="isBreaktime">Break Time</mat-slide-toggle>
                         <br>
                     </div>
@@ -118,7 +119,8 @@
                                <mat-slide-toggle  (onchange)="onOtBreaktime()" formControlName="isOtBreaktime">Break Time</mat-slide-toggle>
                                <br>
                                <mat-error *ngIf="timesheetForm.errors?.['otDateOrder']">Overtime starts  time must be prior to  End time </mat-error>
-                                <mat-error *ngIf="timesheetForm.errors?.['dateOtBreakOrder']">Breaktime must be with OT Start and End</mat-error><br>
+                                <mat-error *ngIf="timesheetForm.errors?.['dateOtBreakOrder']">Breaktime must be within OT Start and End</mat-error><br>
+
                         </div>
                         
                         </mat-expansion-panel>
@@ -132,7 +134,7 @@
                     </mat-form-field>
                     <br>
                   
-                <button mat-raised-button color="primary" (click)="regTimesheet()">Update</button><br>
+                <button mat-raised-button color="primary" (click)="regTimesheet();openSnackBar()">Update</button><br>
                 </div>
             </form>
         
@@ -149,7 +151,6 @@
             </div >
             <div class="border border-1 rounded shadow-sm" style="padding: 5%;">
                 
-                <button mat-raised-button color="primary" (click)="displayLog()">Display time</button><br>
             </div>
             
     </div>
@@ -159,6 +160,7 @@
     <div style="width: 40%;float: right; padding-top: 1%;">
     <mat-card class="inline-calendar-card">
         <mat-calendar [(selected)]="selected" (selectedChange)="calChange($event)"></mat-calendar>
+        <!-- <mat-calendar [(ngModel)]="selected" (selectedChange)="calChange($event)"></mat-calendar> -->
         </mat-card>
 
     </div>
