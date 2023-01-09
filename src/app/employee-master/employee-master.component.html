@@ -1,0 +1,225 @@
+<ul class="opbut">
+  <li><button mat-raised-button *ngIf="getbut" (click)="getemp()" ><mat-icon >search</mat-icon></button></li>
+  <li><button mat-raised-button *ngIf="delbut" (click)="delemp()"><mat-icon >delete</mat-icon></button></li>
+  <li><button mat-raised-button *ngIf="crebut" (click)="creemp()"><mat-icon >save</mat-icon></button></li>
+  <li><button mat-raised-button *ngIf="updbut" (click)="updemp()"><mat-icon >save</mat-icon></button></li>
+  <li><button mat-raised-button (click)="bth()"><mat-icon >keyboard_arrow_left</mat-icon></button></li>
+  </ul>
+
+  <form  class="top">
+    <!-- for="empid" style="width:100px" -->
+    <mat-form-field class="li">
+      <mat-label>Employee Id</mat-label>
+      <input matInput name="empid"  [(ngModel)]="employee.EMPCOD" required="true">
+    </mat-form-field>
+    <mat-form-field class="li">
+      <mat-label>Company Code</mat-label>
+      <input matInput name="ccod" [(ngModel)]="employee.CCOD"   required="true">
+    </mat-form-field>
+    <mat-form-field class="li" appearance="fill">
+      <mat-label>Choose a date</mat-label>
+      <input matInput   [matDatepicker]="picker" [(ngModel)]="CREDAT"  name="CREDAT"  required="true">
+      <mat-datepicker-toggle matIconSuffix [for]="picker" ></mat-datepicker-toggle>
+      <mat-datepicker #picker   required="true"></mat-datepicker  >
+    </mat-form-field>
+  </form>
+
+  <mat-tab-group class="head" animationDuration="800ms" dynamicHeight>
+
+    <mat-tab label="Basic Data1">
+      <ul>
+
+      <li><mat-form-field><mat-label for="empnam">Employee Name</mat-label>
+      <input matInput [(ngModel)]="employee.EMPNAM" name="empnam" type="text" /></mat-form-field></li>
+      <li><mat-form-field class="li" appearance="fill">
+        <mat-label>Date of Birth</mat-label>
+        <input matInput   [matDatepicker]="picker1" [(ngModel)]="DOB"  name="CREDAT"  required="true">
+        <mat-datepicker-toggle matIconSuffix [for]="picker1" ></mat-datepicker-toggle>
+        <mat-datepicker #picker1   required="true"></mat-datepicker  >
+      </mat-form-field></li>
+      <li><mat-form-field><mat-label style="width:216px" for="gnd">Gender</mat-label>
+        <mat-select id="gnd" [(ngModel)]="employee.GENDER" name="gnd" type="text">
+          <mat-option value=""></mat-option>
+          <mat-option *ngFor="let gnd of gndr"  [value]="gnd.GENDER">{{gnd.GEN_TEXT}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </li>
+      <li><mat-form-field><mat-label  for="age" style="width:201px" >Age</mat-label>
+        <input matInput maxlength="2" class="no-spinner" id="age" type="number" min="1" max="99" name="age" /></mat-form-field></li>
+
+        <li><mat-form-field><mat-label style="width:216px" for="splnex">Spoken Language</mat-label>
+          <mat-select [(ngModel)]="employee.SPLNGID" id="splnex" name="splnex" type="text">
+            <mat-option value=""></mat-option>
+            <mat-option *ngFor="let lng of langu"  [value]="lng.LNGID">{{lng.LNG_TEXT}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </li>
+
+        <li><mat-form-field class="li" appearance="fill">
+          <mat-label>Active Start Date</mat-label>
+          <input matInput   [matDatepicker]="picker2" [(ngModel)]="STRDT"  name="STRDT"  required="true">
+          <mat-datepicker-toggle matIconSuffix [for]="picker2" ></mat-datepicker-toggle>
+          <mat-datepicker #picker2   required="true"></mat-datepicker  >
+        </mat-form-field></li>
+        <li><mat-form-field class="li" appearance="fill">
+          <mat-label>Active End Date</mat-label>
+          <input matInput   [matDatepicker]="picker3" [(ngModel)]="ENDDT"  name="CREDAT"  required="true">
+          <mat-datepicker-toggle matIconSuffix [for]="picker3" ></mat-datepicker-toggle>
+          <mat-datepicker #picker3   required="true"></mat-datepicker  >
+        </mat-form-field></li>
+
+    </ul>
+
+    </mat-tab>
+    <mat-tab label="Basic Data2"  dynamicHeight>
+      <ul>
+      <li><mat-form-field><mat-label  for="str1">Street1</mat-label>
+        <input matInput maxlength="30" [(ngModel)]="employee.STREET1" type="text" id="str1" name="str1" /></mat-form-field></li>
+        <li><mat-form-field><mat-label  for="str2">Street2</mat-label>
+          <input matInput maxlength="30" [(ngModel)]="employee.STREET2" type="text" id="str2" name="str2" /></mat-form-field></li>
+        <li><mat-form-field><mat-label  for="str3">Street3</mat-label>
+          <input matInput maxlength="30" [(ngModel)]="employee.STREET3" type="text" id="str3" name="str3" /></mat-form-field></li>
+        <li><mat-form-field><mat-label  for="city" >City</mat-label>
+          <input matInput maxlength="30" [(ngModel)]="employee.CITY" type="text" id="city" name="city" /></mat-form-field></li>
+        <li><mat-form-field><mat-label  for="stat" >State</mat-label>
+          <input matInput maxlength="30" [(ngModel)]="employee.STATE" type="text" id="stat" name="stat" /></mat-form-field></li>
+
+        <li><mat-form-field>
+          <mat-label  for="cntry" >Country</mat-label>
+            <mat-select maxlength="2" [(ngModel)]="employee.CNTRY" style="text-transform:uppercase" type="text" id="cntry" name="cntry" >
+                <mat-option value=""></mat-option>
+                <mat-option *ngFor="let ctry of cntry"  [value]="ctry.COUNTRY">{{ctry.CNTR_TEXT}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </li>
+
+        <li><mat-form-field><mat-label  for="lang" style="width:216px" >Language</mat-label>
+          <mat-select type="text" [(ngModel)]="employee.LNGID" maxlength="2" style="text-transform:uppercase" id="lang" name="lang" >
+             <mat-option value=""></mat-option>
+             <mat-option *ngFor="let lng of langu"  [value]="lng.LNGID">{{lng.LNG_TEXT}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        </li>
+        <li><mat-form-field><mat-label for="pstl" >Postal Code</mat-label>
+          <input matInput [(ngModel)]="employee.PINCODE" type="text" maxlength="10" style="width:80px;" inputmode="numeric" id="pstl" name="pstl" /></mat-form-field></li>
+            <li><mat-form-field><mat-label  for="phn1" >Phone1</mat-label>
+              <input matInput [(ngModel)]="employee.PHONE1" type="tel" maxlength="30" style="width:226px;" id="phn1" name="phn1" /></mat-form-field></li>
+            <li><mat-form-field><mat-label  for="phn2" >Phone2</mat-label>
+              <input matInput [(ngModel)]="employee.PHONE2" maxlength="30" style="width:226px;" type="text" id="phn2" name="phn2" /></mat-form-field></li>
+            <li><mat-form-field><mat-label  for="fax" >Fax</mat-label>
+              <input matInput [(ngModel)]="employee.FAXNO" type="text" maxlength="30" style="width:226px;" id="fax" name="fax" /></mat-form-field></li>
+            <li><mat-form-field><mat-label  for="emil" >E-mail</mat-label>
+              <input matInput [(ngModel)]="employee.EMAIL" maxlength="50" style="width:226px;" type="text" id="emil" name="emil" /></mat-form-field></li>
+
+        </ul>
+    </mat-tab>
+    <mat-tab label="Salary Detail">
+      <ul class="sald">
+        <li><mat-form-field><mat-label  for="bnk" style="width:216px" >Bank</mat-label>
+            <mat-select [(ngModel)]="employee.BANCOD" type="text" maxlength="2" style="text-transform:uppercase"  id="bnk" name="bnk" >
+              <mat-option value=""></mat-option>
+              <mat-option *ngFor="let bnk of bank"  [value]="bnk.BANCOD">{{bnk.BNK_TEXT}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          </li>
+
+          <li><mat-form-field><mat-label  for="bsal">Base Salary</mat-label>
+            <input matInput [(ngModel)]="employee.BASSAL" maxlength="13" class="no-spinner" onchange="grs()" style="width:100px;text-align: right" value="0.00" placeholder="0.00" type="number" step="0.01" id="bsal" name="bsal" /></mat-form-field></li>
+        <li><mat-form-field><mat-label for="hrawl" >House rental Allowance</mat-label>
+          <input matInput [(ngModel)]="employee.HRALW" maxlength="13" class="no-spinner" onchange="grs()" style="width:100px;text-align: right" value="0.00" placeholder="0.00" type="number" step="0.01" id="hrawl" name="hrawl" /></mat-form-field></li>
+        <li><mat-form-field><mat-label  for="conawl" >Conveyance Allowance</mat-label>
+          <input matInput [(ngModel)]="employee.CONALW" maxlength="13" class="no-spinner" onchange="grs()" style="width:100px;text-align: right" value="0.00" placeholder="0.00" type="number" step="0.01" id="conawl" name="conawl" /></mat-form-field></li>
+        <li><mat-form-field><mat-label  for="sttben" >Statutory Benifits</mat-label>
+          <input matInput [(ngModel)]="employee.STATBEN" maxlength="13" class="no-spinner" onchange="grs()" style="width:100px;text-align: right" value="0.00" placeholder="0.00" type="number" step="0.01" id="sttben" name="sttben" /></mat-form-field></li>
+        <li><mat-form-field><mat-label  for="incnt">Incentive</mat-label>
+          <input matInput [(ngModel)]="employee.INCNT" maxlength="13" class="no-spinner" style="width:100px;text-align: right" value="0.00" placeholder="0.00" type="text"id="incnt" name="incnt" /></mat-form-field></li>
+        <li><mat-form-field><mat-label  for="bons">Bonus</mat-label>
+          <input matInput [(ngModel)]="employee.BONUS" maxlength="13" class="no-spinner" style="width:100px;text-align: right" value="0.00" placeholder="0.00" type="text" id="bons" name="bons" /></mat-form-field></li>
+        <li><mat-form-field><mat-label  for="sclins" >Social Insurance</mat-label>
+          <input matInput [(ngModel)]="employee.SOCINS" maxlength="13" class="no-spinner" style="width:100px;text-align: right" value="0.00" placeholder="0.00" type="text" id="sclins" name="sclins" /></mat-form-field></li>
+
+      </ul>
+      <ul class="sald">
+        <li><mat-form-field><mat-label  for="helins" >Health Insurance</mat-label>
+          <input matInput [(ngModel)]="employee.HELINS" maxlength="13" class="no-spinner" style="width:100px;text-align: right" value="0.00" placeholder="0.00" type="text" id="helins" name="helins" /></mat-form-field></li>
+        <li><mat-form-field><mat-label  for="epf" >Pension EPF</mat-label>
+          <input matInput [(ngModel)]="employee.PENSION" onchange="dtct()" type="text" maxlength="13" class="no-spinner" style="width:100px;text-align: right" value="0.00" placeholder="0.00" id="epf" name="epf" /></mat-form-field></li>
+        <li><mat-form-field><mat-label  for="advnc" >Loan</mat-label>
+          <input matInput [(ngModel)]="employee.LOAN" onchange="dtct()" type="text" maxlength="13" class="no-spinner" style="width:100px;text-align: right" value="0.00" placeholder="0.00" id="advnc" name="advnc" /></mat-form-field></li>
+        <li><mat-form-field><mat-label  for="tax" >Tax</mat-label>
+          <input matInput [(ngModel)]="employee.TAX" onchange="dtct()" type="text" maxlength="13" class="no-spinner" style="width:100px;text-align: right" value="0.00" placeholder="0.00" id="tax" name="tax" /></mat-form-field></li>
+        <li><mat-form-field><mat-label  for="totdt" >Total Detection</mat-label>
+          <input matInput maxlength="13" class="no-spinner" style="width:100px;text-align: right" value="0.00" placeholder="0.00" type="text" id="totdt" name="totdt" /></mat-form-field></li>
+        <li><mat-form-field><mat-label  for="bilrat" >Billing Rate</mat-label>
+          <input matInput [(ngModel)]="employee.BILRATE" maxlength="13" class="no-spinner" style="width:100px;text-align: right" value="0.00" placeholder="0.00" type="text" id="bilrat" name="bilrat" /></mat-form-field></li>
+        <li><mat-form-field><mat-label  for="grssal" >Gross Salary</mat-label>
+          <input matInput maxlength="13" class="no-spinner" style="width:100px;text-align: right" value="0.00" placeholder="0.00" type="text" id="grssal" name="grssal" /></mat-form-field></li>
+        <li><mat-form-field><mat-label  for="netsal" >Net Salary</mat-label>
+          <input matInput maxlength="13" class="no-spinner" style="width:100px;text-align: right" value="0.00" placeholder="0.00" type="text" id="netsal" name="netsal" /></mat-form-field></li>
+    </ul>
+    </mat-tab>
+    <mat-tab label="Organization Detail">
+      <ul class="ortb">
+        <li><mat-form-field><mat-label for="bslin">Business Line</mat-label>
+            <mat-select [(ngModel)]="employee.BIZID" maxlength="2" style="text-transform:uppercase" width="120px" type="text" id="bslin" name="bslin" >
+              <mat-option value=""></mat-option>
+              <mat-option *ngFor="let bsln of buslin"  [value]="bsln.BIZID">{{bsln.BIZ_TEXT}}</mat-option>
+            </mat-select></mat-form-field></li>
+        <li><mat-form-field><mat-label for="dept">Department</mat-label>
+            <mat-select [(ngModel)]="employee.DPTCOD" maxlength="2" style="text-transform:uppercase" type="text" id="dept" name="dept" >
+                <mat-option value=""></mat-option>
+                <mat-option *ngFor="let dept1 of dept"  [value]="dept1.DPTCOD">{{dept1.DPT_TEXT}}</mat-option>
+            </mat-select></mat-form-field></li>
+        <li><mat-form-field><mat-label for="emptyp">Employee Type</mat-label>
+            <mat-select [(ngModel)]="employee.EMPTYP" maxlength="2" style="text-transform:uppercase" type="text" id="emptyp" name="emptyp" >
+                <mat-option value=""></mat-option>
+                <mat-option *ngFor="let empty of emptyp"  [value]="empty.EMPTYP">{{empty.EMTY_TEXT}}</mat-option>
+            </mat-select></mat-form-field></li>
+        <li><mat-form-field><mat-label for="rank" >Rank</mat-label>
+            <mat-select [(ngModel)]="employee.RANKCOD" maxlength="2" style="width:150px;text-transform:uppercase" type="text" id="rank" name="rank" >
+                <mat-option value=""></mat-option>
+                <mat-option *ngFor="let rnkem of rnkemp"  [value]="rnkem.RANKCOD">{{rnkem.RNK_TEXT}}</mat-option>
+            </mat-select></mat-form-field></li>
+
+    </ul>
+    </mat-tab>
+
+    <mat-tab label="Experience">
+      <ul>
+        <li><mat-form-field><mat-label for="resv" >Reserve</mat-label>
+          <input matInput [(ngModel)]="employee.RESERV" maxlength="30" style="width:226px;" type="text" id="resv" name="resv" /></mat-form-field></li>
+        <li><mat-form-field><mat-label for="modexp" style="width:216px" >Module</mat-label>
+            <mat-select [(ngModel)]="employee.MODUL" maxlength="4" style="text-transform:uppercase" width="120px" type="text" id="modexp" name="modexp" >
+                <mat-option value=""></mat-option>
+                <mat-option *ngFor="let mdul of modul"  [value]="mdul.MODUL">{{mdul.MOD_TEXT}}</mat-option>
+            </mat-select></mat-form-field></li>
+        <li><mat-form-field><mat-label for="pmglnex" style="width:216px" >Programming Language</mat-label>
+            <mat-select [(ngModel)]="employee.PGMLANG" maxlength="2" style="text-transform:uppercase" type="text" id="pmglnex" name="pmglnex" >
+                <mat-option value=""></mat-option>
+                <mat-option *ngFor="let pgmlg of pgmlng"  [value]="pgmlg.PGMLANG">{{pgmlg.PGLN_TEXT}}</mat-option>
+            </mat-select></mat-form-field></li>
+            <li><mat-form-field><mat-label for="exsap">Experiencr in SAP</mat-label>
+              <input [(ngModel)]="employee.EXSAP" matInput maxlength="2" style="width:32px;" type="number" id="exsap" name="exsap" /></mat-form-field></li>
+            <li><mat-form-field><mat-label for="exit" >Experience in IT</mat-label>
+              <input [(ngModel)]="employee.EXPIT" matInput maxlength="2" style="width:32px;" type="number" id="exit" name="exit" /></mat-form-field></li>
+            <li><mat-form-field><mat-label for="quli" >Qualification</mat-label>
+              <input [(ngModel)]="employee.QUALI" matInput maxlength="30" style="width:226px;" type="text" id="quli" name="quli" /></mat-form-field></li>
+    </ul>
+    </mat-tab>
+
+    <mat-tab label="Logon Credential">
+      <ul>
+        <li><mat-form-field><mat-label  >Username</mat-label>
+          <input [(ngModel)]="employee.USERNAME" matInput  maxlength="30" type="text" name="username"  /></mat-form-field></li>
+            <li><mat-form-field><mat-label >Enter Password</mat-label>
+              <input [(ngModel)]="employee.PASSWORD" matInput maxlength="20" [type]="showPassword ? 'text' : 'password'" name="password"  />
+              <mat-icon matSuffix (click)="togglePasswordVisibility()">
+                {{showPassword?'visibility':'visibility_off'}}
+            </mat-icon></mat-form-field></li>
+            <li><mat-form-field><mat-label for="exit" >Re-Enter Password</mat-label>
+              <input [(ngModel)]="employee.PASSWORD1" matInput maxlength="20" style="width:32px;" type="password" /></mat-form-field></li>
+    </ul>
+    </mat-tab>
+
+  </mat-tab-group>
+
