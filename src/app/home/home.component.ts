@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { Login } from '../Models/login.model';
 import { LoginService } from '../Services/login.service';
 import "@ui5/webcomponents/dist/Button.js";
 import "@ui5/webcomponents/dist/TimePicker.js";
+import { AuthorizationService } from '../Services/authorization/authorization.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -39,7 +41,10 @@ export class HomeComponent implements OnInit {
   login = new Login();
 
   constructor(private loginService :LoginService,
-    private route :ActivatedRoute) { }
+    private router:Router,
+    private route :ActivatedRoute,
+    private authorizationService :AuthorizationService,
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
 
@@ -55,18 +60,68 @@ export class HomeComponent implements OnInit {
     
   }
 
-empcre(): void{
-  window.location.href=' http://192.168.0.10:8080/mavenspring/empcre?weblng=EN&emnum=1&bodybgc=%23F4F6F9&headbgc=%232a377b&tablinkbgc=%23555555&tabcontbgc=%235e849c&tablebgc=%23555555&ccd=JA01';
-}
-empchn(): void{
-  window.location.href='http://192.168.0.10:8080/mavenspring/empcha?weblng=EN&emnum=1&bodybgc=%23F4F6F9&headbgc=%232a377b&tablinkbgc=%23555555&tabcontbgc=%235e849c&tablebgc=%23555555&ccd=JA01';
-}
-empdis(): void{
-  window.location.href='http://192.168.0.10:8080/mavenspring/empdis?weblng=EN&emnum=1&bodybgc=%23F4F6F9&headbgc=%232a377b&tablinkbgc=%23555555&tabcontbgc=%235e849c&tablebgc=%23555555&ccd=JA01';
-}
-empdel(): void{
-  window.location.href='http://192.168.0.10:8080/mavenspring/empdel?weblng=EN&emnum=1&bodybgc=%23F4F6F9&headbgc=%232a377b&tablinkbgc=%23555555&tabcontbgc=%235e849c&tablebgc=%23555555&ccd=JA01';
-}
+  empcre(){
+    this.id = this.route.snapshot.params['id'];
+    console.log(this.router.url);
+    console.log(navigator.languages);
+    this.authorizationService.appauthcheck(this.id,"EM","C").subscribe(data =>{
+
+      console.log(data.success);
+      if(data.success == 1){
+        this._snackBar.open("You have access","OK",{duration:2000});
+        this.router.navigate(['/emp_info',this.id,"C"]);
+      }else{
+        this._snackBar.open("You don't have access","OK",{duration:2000});
+      }
+
+    });
+
+
+  }
+
+  empcha(){
+    this.id = this.route.snapshot.params['id'];
+    this.authorizationService.appauthcheck(this.id,"EM","U").subscribe(data =>{
+
+      console.log(data.success);
+      if(data.success == 1){
+        this._snackBar.open("You have access","OK",{duration:2000});
+        this.router.navigate(['/emp_info',this.id,"U"]);
+      }else{
+        this._snackBar.open("You don't have access","OK",{duration:2000});
+      }
+
+    });
+  }
+
+  empdis(){
+    this.id = this.route.snapshot.params['id'];
+    this.authorizationService.appauthcheck(this.id,"EM","R").subscribe(data =>{
+
+      if(data.success == 1){
+        this._snackBar.open("You have access","OK",{duration:2000});
+        this.router.navigate(['/emp_info',this.id,"R"]);
+      }else{
+        this._snackBar.open("You don't have access","OK",{duration:2000});
+      }
+
+    });
+  }
+
+  empdel(){
+    this.id = this.route.snapshot.params['id'];
+    this.authorizationService.appauthcheck(this.id,"EM","D").subscribe(data =>{
+
+      console.log(data.success);
+      if(data.success == 1){
+        this._snackBar.open("You have access","OK",{duration:2000});
+        this.router.navigate(['/emp_info',this.id,"D"]);
+      }else{
+        this._snackBar.open("You don't have access","OK",{duration:2000});
+      }
+
+    });
+  }
 
 
 inqcre(): void{

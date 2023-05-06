@@ -1,25 +1,30 @@
 
 <div class="tildiv"   >
-    <!-- <div class="mstic" style="margin-left:8px" > -->
-<div id="em1" class="tile" title="Employee Master" *ngIf="tileoff" (mouseenter)="emptile()">
-      <label style="font-size:15px;color:black;margin-left: 5px;"> Employee Master</label>
-      <i id="em1" class='fas fa-id-card' style='font-size:93px;margin: 15px'></i>
-</div>
-  <div id="em1" class="content" *ngIf="chldtiloff" (mouseleave)="retn();">
-    <ul>
-    <li><button title="Create Employee Master" (click)="empcre()" class="opt" >
-            <i class='fas fa-file' style='font-size:20px;'></i></button></li>
-    <li><button title="Change Employee Master" (click)="empchn()" class="opt">
-            <i class='fas fa-edit' style='font-size:20px;'></i></button></li>
-    </ul>
-    <ul>
-    <li><button title="Display Employee Master" (click)="empdis()" class="opt">
-            <i class='fas fa-glasses' style='font-size:20px;'></i></button></li>
-    <li><button title="Delete Employee Master" (click)="empdel()" class="opt">
-            <i class='fas fa-trash' style='font-size:20px;'></i></button></li>
-    </ul>
-  </div>
-</div>
+        <div   id="em1" class="tile" title="Employee Master" *ngIf="tileoff" (mouseenter)="emptile()">
+            <div class="mstic" style="margin-left:8px" >
+              <i  class='fas fa-id-card fa-fw fa-8x'></i>
+                <label style="font-size:15px;color:black">Employee Master</label></div>
+    
+            </div>
+            <div id="em1" class="content" *ngIf="chldtiloff" (mouseleave)="retn();">
+              <ul>
+              <li><button mat-raised-button title="Create Employee Master" (click)="empcre()" class="opt" >
+                      <i class='fas fa-file' style='font-size:25px;'></i></button></li>
+      <li><button mat-raised-button title="Change Employee Master" (click)="empcha()" class="opt">
+                      <i class='fas fa-edit' style='font-size:25px;'></i></button></li>
+              </ul>
+              <ul>
+      <li><button mat-raised-button title="Display Employee Master" (click)="empdis()" class="opt">
+                      <i class='fas fa-glasses' style='font-size:25px;'></i></button></li>
+              <li><button mat-raised-button title="Delete Employee Master" (click)="empdel()" class="opt">
+                      <i class='fas fa-trash' style='font-size:25px;'></i></button></li>
+              </ul>
+      <!--                        <ul>
+                  <button type="button" id="em1" onclick="retn(this.id);" class="ret" >cre</button>
+              </ul>-->
+            </div>
+                    <!-- <button type="button" id="em1" (click)="retn();" class="ret" *ngIf="rtnbutoff" ><i class="fa fa-undo"></i></button> -->
+            </div>
 
 <div class="tildiv"   >
     <!-- <div class="mstic" style="margin-left:8px" > -->

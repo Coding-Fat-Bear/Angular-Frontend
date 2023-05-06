@@ -11,13 +11,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import {ReactiveFormsModule } from '@angular/forms';
 import { MonthsheetComponent } from './monthsheet/monthsheet.component';
+import { EmployeeMasterComponent } from './employee-master/employee-master.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     TimesheetComponent,
     HomeComponent,
-    MonthsheetComponent
+    MonthsheetComponent,
+    EmployeeMasterComponent
   ],
   imports: [
     BrowserModule,
