@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import {ReactiveFormsModule } from '@angular/forms';
 import { MonthsheetComponent } from './monthsheet/monthsheet.component';
 import { EmployeeMasterComponent } from './employee-master/employee-master.component';
+import { InquiryComponent } from './inquiry/inquiry.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +20,8 @@ import { EmployeeMasterComponent } from './employee-master/employee-master.compo
     TimesheetComponent,
     HomeComponent,
     MonthsheetComponent,
-    EmployeeMasterComponent
+    EmployeeMasterComponent,
+    InquiryComponent
   ],
   imports: [
     BrowserModule,

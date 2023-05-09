@@ -14,7 +14,6 @@ import{ Employee }from '../Models/employee.model';
 import { ChildService } from '../Services/Child/child.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EmployeeService } from '../Services/employee/employee.service';
@@ -65,8 +64,9 @@ export class EmployeeMasterComponent implements OnInit {
               private employeeService: EmployeeService,
               private router:Router,
               private route :ActivatedRoute,
-              private _snackBar: MatSnackBar,
-              private datePipe: DatePipe ){}
+              private _snackBar: MatSnackBar
+              // private datePipe: DatePipe 
+              ){}
 
   ngOnInit(): void {
     this.employee = new Employee();
@@ -145,7 +145,6 @@ export class EmployeeMasterComponent implements OnInit {
     this.ChildService.gndrgetall(this.id).subscribe(data=>{
       this.gndr = data.data;
     });
-
 
   }
 

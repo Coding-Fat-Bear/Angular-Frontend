@@ -97,21 +97,21 @@
 
     <div class="tildiv"   >
         <!-- <div class="mstic" style="margin-left:8px" > -->
-    <div id="in1" class="tile" title="Purchase Order " *ngIf="tileoffpo" (mouseenter)="potile()">
-          <label style="font-size:15px;color:black;margin-left: 5px;"> Inquiry Master</label>
+    <div id="in1" class="tile" title="Project Master " *ngIf="tileoffpo" (mouseenter)="potile()">
+          <label style="font-size:15px;color:black;margin-left: 5px;"> Project Master</label>
           <i id="in1" class='fa-solid fa-clipboard' style='font-size:93px;margin: 15px'></i>
     </div>
       <div id="in1" class="content" *ngIf="chldtiloffpo" (mouseleave)="retnpo();">
         <ul>
-        <li><button title="Create Purchase Order" (click)="pocre()" class="opt" >
+        <li><button title="Create Project Master" (click)="pocre()" class="opt" >
                 <i class='fas fa-file' style='font-size:20px;'></i></button></li>
-        <li><button title="Change Purchase Order" (click)="pochn()" class="opt">
+        <li><button title="Change Project Master" (click)="pochn()" class="opt">
                 <i class='fas fa-edit' style='font-size:20px;'></i></button></li>
         </ul>
         <ul>
-        <li><button title="Display Purchase Order" (click)="podis()" class="opt">
+        <li><button title="Display Project Master" (click)="podis()" class="opt">
                 <i class='fas fa-glasses' style='font-size:20px;'></i></button></li>
-        <li><button title="Delete Purchase Order" (click)="podel()" class="opt">
+        <li><button title="Delete Project Master" (click)="podel()" class="opt">
                 <i class='fas fa-trash' style='font-size:20px;'></i></button></li>
         </ul>
       </div>
@@ -122,7 +122,7 @@
         <div   id="ts1" class="tile" title="PO Approval"  (click)="poapp()">
                 <div  style="margin-left:8px" >
                         <label style="font-size:15px;color:black">PO Approval</label>
-                        <i  class='fa-solid fa-badge-check' style='font-size:93px;margin: 15px'></i>
+                        <i  class='fa-solid fa-briefcase' style='font-size:93px;margin: 15px'></i>
                 </div>
         </div>
 </div> 

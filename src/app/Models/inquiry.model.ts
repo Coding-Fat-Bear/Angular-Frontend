@@ -1,0 +1,30 @@
+export class Inquiry{
+    //header
+    INQNO : any;
+    CCOD : any;
+    EMPNO : any;
+    //basic data 1
+    ASSNPER : any;//ass
+    BIZID : any;
+    MODUL : any;
+    LNGID : any;
+    FRMDT : any;
+    TODT : any;
+    POSBPER : any;
+    PRJDES : any;
+    PRJSTS : any;
+    PHASEID : any;
+    ESTMAMT : any;
+    CURR : any;
+    TAX : any;
+    UNIT : any;
+    QTY : any;
+    RATE : any;
+    CUSTNO : any;
+    EUSRNO : any;
+    CUSTINFO : any;
+    REMARKS : any;
+    ACTFLG : any;
+    CREDT : any;
+    CRETIM : any;
+}
