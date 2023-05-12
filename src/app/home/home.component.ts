@@ -69,13 +69,15 @@ export class HomeComponent implements OnInit {
       console.log(data.success);
       if(data.success == 1){
         this._snackBar.open("You have access","OK",{duration:2000});
+        console.log("here");
+        
         this.router.navigate(['/emp_info',this.id,"C"]);
       }else{
         this._snackBar.open("You don't have access","OK",{duration:2000});
       }
 
     });
-
+    
 
   }
 
@@ -125,59 +127,58 @@ export class HomeComponent implements OnInit {
 
 
 inqcre(): void{
-  window.location.href='http://192.168.0.10:8080/mavenspring/inqcre?weblng=EN&emnum=1&bodybgc=%23F4F6F9&headbgc=%232a377b&tablinkbgc=%23555555&tabcontbgc=%235e849c&tablebgc=%23555555&ccd=JA01';
-}
+  this.id = this.route.snapshot.params['id'];
+  console.log(this.router.url);
+  console.log(navigator.languages);
+  this.authorizationService.appauthcheck(this.id,"EM","C").subscribe(data =>{
+
+    console.log(data.success);
+    if(data.success == 1){
+      this._snackBar.open("You have access","OK",{duration:2000});
+      console.log("here");
+      
+      this.router.navigate(['/inq_info',this.id,"C"]);
+    }else{
+      this._snackBar.open("You don't have access","OK",{duration:2000});
+    }
+
+  });
+  }
 inqchn(): void{
-  window.location.href='http://192.168.0.10:8080/mavenspring/inqcha?weblng=EN&emnum=1&bodybgc=%23F4F6F9&headbgc=%232a377b&tablinkbgc=%23555555&tabcontbgc=%235e849c&tablebgc=%23555555&ccd=JA01';
 }
 inqdis(): void{
-  window.location.href='http://192.168.0.10:8080/mavenspring/inqdis?weblng=EN&emnum=1&bodybgc=%23F4F6F9&headbgc=%232a377b&tablinkbgc=%23555555&tabcontbgc=%235e849c&tablebgc=%23555555&ccd=JA01';
 }
 inqdel(): void{
-  window.location.href='http://192.168.0.10:8080/mavenspring/inqdel?weblng=EN&emnum=1&bodybgc=%23F4F6F9&headbgc=%232a377b&tablinkbgc=%23555555&tabcontbgc=%235e849c&tablebgc=%23555555&ccd=JA01';
 }
 
 biscre(): void{
-  window.location.href='http://192.168.0.10:8080/mavenspring/bpmcre?weblng=EN&emnum=1&bodybgc=%23F4F6F9&headbgc=%232a377b&tablinkbgc=%23555555&tabcontbgc=%235e849c&tablebgc=%23555555&ccd=JA01';
 }
 bischn(): void{
-  window.location.href='http://192.168.0.10:8080/mavenspring/bpmcha?weblng=EN&emnum=1&bodybgc=%23F4F6F9&headbgc=%232a377b&tablinkbgc=%23555555&tabcontbgc=%235e849c&tablebgc=%23555555&ccd=JA01';
 }
 bisdis(): void{
-  window.location.href='http://192.168.0.10:8080/mavenspring/bpmdis?weblng=EN&emnum=1&bodybgc=%23F4F6F9&headbgc=%232a377b&tablinkbgc=%23555555&tabcontbgc=%235e849c&tablebgc=%23555555&ccd=JA01';
 }
 bisdel(): void{
-  window.location.href='http://192.168.0.10:8080/mavenspring/bpmdel?weblng=EN&emnum=1&bodybgc=%23F4F6F9&headbgc=%232a377b&tablinkbgc=%23555555&tabcontbgc=%235e849c&tablebgc=%23555555&ccd=JA01';
-}
+ }
 
 authcre(): void{
-  window.location.href='http://192.168.0.10:8080/mavenspring/authcre?weblng=EN&emnum=1&bodybgc=%23F4F6F9&headbgc=%232a377b&tablinkbgc=%23555555&tabcontbgc=%235e849c&tablebgc=%23555555&ccd=JA01';
-}
+ }
 authchn(): void{
-  window.location.href='http://192.168.0.10:8080/mavenspring/authcha?weblng=EN&emnum=1&bodybgc=%23F4F6F9&headbgc=%232a377b&tablinkbgc=%23555555&tabcontbgc=%235e849c&tablebgc=%23555555&ccd=JA01';
 }
 authdis(): void{
-  window.location.href='http://192.168.0.10:8080/mavenspring/authdis?weblng=EN&emnum=1&bodybgc=%23F4F6F9&headbgc=%232a377b&tablinkbgc=%23555555&tabcontbgc=%235e849c&tablebgc=%23555555&ccd=JA01';
 }
 authdel(): void{
-  window.location.href='http://192.168.0.10:8080/mavenspring/authdel?weblng=EN&emnum=1&bodybgc=%23F4F6F9&headbgc=%232a377b&tablinkbgc=%23555555&tabcontbgc=%235e849c&tablebgc=%23555555&ccd=JA01';
-}
+ }
 
 pocre(): void{
-  window.location.href='http://192.168.0.10:8080/mavenspring/pocre?weblng=EN&emnum=1&bodybgc=%23F4F6F9&headbgc=%232a377b&tablinkbgc=%23555555&tabcontbgc=%235e849c&tablebgc=%23555555&ccd=JA01';
 }
 pochn(): void{
-  window.location.href='http://192.168.0.10:8080/mavenspring/pocha?weblng=EN&emnum=1&bodybgc=%23F4F6F9&headbgc=%232a377b&tablinkbgc=%23555555&tabcontbgc=%235e849c&tablebgc=%23555555&ccd=JA01';
-}
+ }
 podis(): void{
-  window.location.href='http://192.168.0.10:8080/mavenspring/podis?weblng=EN&emnum=1&bodybgc=%23F4F6F9&headbgc=%232a377b&tablinkbgc=%23555555&tabcontbgc=%235e849c&tablebgc=%23555555&ccd=JA01';
 }
 podel(): void{
-  window.location.href='http://192.168.0.10:8080/mavenspring/podel?weblng=EN&emnum=1&bodybgc=%23F4F6F9&headbgc=%232a377b&tablinkbgc=%23555555&tabcontbgc=%235e849c&tablebgc=%23555555&ccd=JA01';
 }
 
 poapp(): void{
-  window.location.href='http://192.168.0.10:8080/mavenspring/appscr?weblng=EN&emnum=1&bodybgc=%23F4F6F9&headbgc=%232a377b&tablinkbgc=%23555555&tabcontbgc=%235e849c&tablebgc=%23555555&ccd=JA01';
 }
 
 timesheet(): void{
@@ -185,8 +186,7 @@ timesheet(): void{
 }
 
 monthsheet(): void{
-  window.location.href='http://192.168.0.10:8080/mavenspring/appscr?weblng=EN&emnum=1&bodybgc=%23F4F6F9&headbgc=%232a377b&tablinkbgc=%23555555&tabcontbgc=%235e849c&tablebgc=%23555555&ccd=JA01';
-}
+  window.location.href='http://localhost:4200/monthsheet/1/2022/12'}
 
 emptile(){
   this.tileoff = !this.tileoff;

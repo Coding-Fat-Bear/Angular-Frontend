@@ -45,7 +45,9 @@
         </mat-form-field>
       </li>
       <li><mat-form-field><mat-label  for="age" style="width:201px" >Age</mat-label>
-        <input matInput maxlength="2" class="no-spinner" id="age" type="number" min="1" max="99" name="age" /></mat-form-field></li>
+        <input matInput maxlength="2" class="no-spinner" id="age" type="number" min="1" max="99" name="age" />
+      </mat-form-field>
+    </li>
 
         <li><mat-form-field><mat-label style="width:216px" for="splnex">Spoken Language</mat-label>
           <mat-select [(ngModel)]="employee.SPLNGID" id="splnex" name="splnex" type="text">
@@ -71,6 +73,7 @@
     </ul>
 
     </mat-tab>
+    
     <mat-tab label="Basic Data2"  dynamicHeight>
       <ul>
       <li><mat-form-field><mat-label  for="str1">Street1</mat-label>

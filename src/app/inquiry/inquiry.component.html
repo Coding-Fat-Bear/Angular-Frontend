@@ -1,0 +1,67 @@
+<ul class="opbut">
+  <li><button mat-raised-button (click)="bth()"><mat-icon >keyboard_arrow_left</mat-icon></button></li><span>  </span>
+    <li><button mat-raised-button *ngIf="getbut" (click)="getinq()" ><mat-icon >search</mat-icon></button></li>
+    <li><button mat-raised-button *ngIf="delbut" (click)="delinq()"><mat-icon >delete</mat-icon></button></li>
+    <li><button mat-raised-button *ngIf="crebut" (click)="creinq()"><mat-icon >save</mat-icon></button></li>
+    <li><button mat-raised-button *ngIf="updbut" (click)="updinq()"><mat-icon >save</mat-icon></button></li>
+    
+    </ul>
+    <form  class="form" #registerForm="ngForm">
+      <mat-form-field class="li">
+        <mat-label>inquiry No</mat-label>
+        <input matInput #INQNO="ngModel" name="INQNO"  [(ngModel)]="inquiry.INQNO" required>
+        <mat-error>Requried</mat-error>
+      </mat-form-field>
+      <mat-form-field class="li">
+        <mat-label>Company Code</mat-label>
+        <input matInput name="ccod" [(ngModel)]="inquiry.CCOD"   required>
+        <mat-error>Requried</mat-error>
+      </mat-form-field>
+      <mat-form-field class="li">
+        <mat-label>Employee Code</mat-label>
+        <input matInput name="empno" [(ngModel)]="inquiry.EMPNO"   required>
+        <mat-error>Requried</mat-error>
+      </mat-form-field>
+    
+    <mat-tab-group class="head" animationDuration="800ms" dynamicHeight>
+  
+      <mat-tab label="Basic Data1">
+        <ul>
+        <li><mat-form-field><mat-label>inquiry Name</mat-label>
+        <input matInput [(ngModel)]="inquiry.CCOD" name="inqnam" type="text" />
+        </mat-form-field>
+        </li>
+
+        <li>
+          <mat-form-field>
+            <mat-label  >Asssignment percentage</mat-label>
+            <input matInput  [(ngModel)]="inquiry.ASSNPER"  #numberField="ngModel" min="0" max="100" name ="Ass">
+            <mat-error *ngIf="numberField.valid">
+              Value must be between 0 and 100
+            </mat-error>
+            </mat-form-field>
+        </li>
+
+        <li><mat-form-field>
+          <mat-label   >Module</mat-label>
+            <mat-select [(ngModel)]="inquiry.MODUL"   name="module" >
+              <mat-option *ngFor="let lng of module"  [value]="lng.MODUL">{{lng.MOD_TEXT}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </li>
+      </ul>
+      </mat-tab>
+        
+    <mat-tab label="Basic Data2">
+      <ul>
+        <li><mat-form-field><mat-label  for="lang" style="width:216px" >Language</mat-label>
+          <mat-select  [(ngModel)]="inquiry.LNGID"  name="lang" >
+             <mat-option *ngFor="let lng of lang"  [value]="lng.LNGID">{{lng.LNG_TEXT}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        </li>
+      </ul>
+      </mat-tab>
+    </mat-tab-group>
+  </form>
+  
