@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     
   }
-  LogIn(){
+  logIn(){
     if (this.login.USERNAME && this.login.PASSWORD) {
       console.log("bother are there");
       this.loginService.loginByUsernameAndPassword(this.login).subscribe(data =>{

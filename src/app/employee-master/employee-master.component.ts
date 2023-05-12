@@ -13,7 +13,7 @@ import { Bank,
 import{ Employee }from '../Models/employee.model';
 import { ChildService } from '../Services/Child/child.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DatePipe } from '@angular/common';
+// import { DatePipe } from '@angular/common';
 import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -49,7 +49,7 @@ export class EmployeeMasterComponent implements OnInit {
   rnkemp:Rank_emp[];
   langu:Language[];
   public showPassword: boolean = false;
-  pipe = new DatePipe('en-JP');
+  // pipe = new DatePipe('en-JP');
   employee : Employee;
   CREDAT:Date;
   DOB:Date;
@@ -65,8 +65,7 @@ export class EmployeeMasterComponent implements OnInit {
               private employeeService: EmployeeService,
               private router:Router,
               private route :ActivatedRoute,
-              private _snackBar: MatSnackBar,
-              private datePipe: DatePipe ){}
+              private _snackBar: MatSnackBar ){}
 
   ngOnInit(): void {
     this.employee = new Employee();

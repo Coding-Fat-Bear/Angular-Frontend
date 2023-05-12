@@ -20,7 +20,7 @@ export class EmployeeService {
   empupd(Id:number,APPMASTER:string,AUTHFLG:string,employee:Employee):Observable<any>{
     const token  = localStorage.getItem('access_token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`).set('Access-Control-Allow-Origin','*');
-    return this.httpClient.put(`${this.baseUrl}/api/empupd/${Id}/${APPMASTER}/${AUTHFLG}`,employee,{headers:headers});
+    return this.httpClient.put(`${this.baseUrl}/api/empupd/${Id}/${APPMASTER}/${AUTHFLG}/${employee.EMPCOD}`,employee,{headers:headers});
   }
 
 }

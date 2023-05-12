@@ -17,7 +17,6 @@ export class Employee{
   EXSAP:String
   EXPIT:String
   RESERV:String
-  ACTFLG:String
   BASSAL:String
   INCNT:String
   BONUS:String
@@ -49,5 +48,4 @@ export class Employee{
   PASSWORD:String
   CREDT:String
   CRETIM:String
-  PASSWORD1:String
 }
