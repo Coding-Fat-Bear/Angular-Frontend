@@ -1,4 +1,5 @@
 <ul class="opbut">
+
   <li><button mat-raised-button (click)="bth()"><mat-icon >keyboard_arrow_left</mat-icon></button></li><span>  </span>
     <li><button mat-raised-button *ngIf="getbut" (click)="getinq()" ><mat-icon >search</mat-icon></button></li>
     <li><button mat-raised-button *ngIf="delbut" (click)="delinq()"><mat-icon >delete</mat-icon></button></li>
@@ -7,6 +8,7 @@
     
     </ul>
     <form  class="form" #registerForm="ngForm">
+      
       <mat-form-field class="li">
         <mat-label>inquiry No</mat-label>
         <input matInput #INQNO="ngModel" name="INQNO"  [(ngModel)]="inquiry.INQNO" required>
@@ -35,10 +37,10 @@
         <li>
           <mat-form-field>
             <mat-label  >Asssignment percentage</mat-label>
-            <input matInput  [(ngModel)]="inquiry.ASSNPER"  #numberField="ngModel" min="0" max="100" name ="Ass">
-            <mat-error *ngIf="numberField.valid">
-              Value must be between 0 and 100
-            </mat-error>
+            <input matInput appSelectValidator ="inqnam" [(ngModel)]="inquiry.ASSNPER"  #numberField="ngModel" [min]="0" [max]="100" name ="Ass">
+            <mat-error  *ngIf="numberField.errors?.['sel']">
+              The number must be between 0 and 100.
+            </mat-error >
             </mat-form-field>
         </li>
 
@@ -60,7 +62,134 @@
           </mat-select>
         </mat-form-field>
         </li>
+
+        <li><mat-form-field  appearance="fill">
+          <mat-label>Project Start Date</mat-label>
+          <input matInput   [matDatepicker]="picker1" [(ngModel)]="FRMDT_I"  name="FRMDT_I"  >
+          <mat-datepicker-toggle matSuffix [for]="picker1" ></mat-datepicker-toggle>
+          <mat-datepicker #picker1  ></mat-datepicker  >
+        </mat-form-field></li>
+
+        <li><mat-form-field  appearance="fill">
+          <mat-label>Project End Date</mat-label>
+          <input matInput   [matDatepicker]="picker2" [(ngModel)]="TODT_I"  name="TODT_I"  >
+          <mat-datepicker-toggle matSuffix [for]="picker2" ></mat-datepicker-toggle>
+          <mat-datepicker #picker2  ></mat-datepicker  >
+        </mat-form-field></li>
+
+        <li>
+          <mat-form-field>
+            <mat-label  >Possibility percentage</mat-label>
+            <input matInput appSelectValidator [(ngModel)]="inquiry.POSBPER"  #numberField1="ngModel" min="0" max="100" name ="Pos%">
+            <mat-error  *ngIf="numberField.errors?.['sel']">
+              The number must be between 0 and 100.
+            </mat-error >
+            </mat-form-field>
+        </li>
+
+        <li>
+          <mat-form-field>
+              <mat-label>Project Description</mat-label>
+              <input matInput [(ngModel)]="inquiry.PRJDES" name="PRJDES" type="text" />
+          </mat-form-field>
+        </li>
+
+        <li>
+          <mat-form-field>
+              <mat-label>Project Phase</mat-label>
+              <input matInput [(ngModel)]="inquiry.PHASEID" name="PHASE" type="text" />
+          </mat-form-field>
+        </li>
       </ul>
+    
+      </mat-tab>
+      <!--third tab -->
+      <mat-tab label="Estimation">
+        <ul>
+          <li>
+            <mat-form-field>
+              <mat-label>Estimation Amount</mat-label>
+              <input matInput [(ngModel)]="inquiry.ESTMAMT" name="estmant" type="text" />
+            </mat-form-field>
+          </li>
+        </ul>
+
+        <ul>
+          <li>
+            <mat-form-field>
+              <mat-label>Currency</mat-label>
+              <input matInput [(ngModel)]="inquiry.CURR" name="curr" type="text" />
+            </mat-form-field>
+          </li>
+        </ul>
+
+        <ul>
+          <li>
+            <mat-form-field>
+              <mat-label>Tax Amount</mat-label>
+              <input matInput [(ngModel)]="inquiry.TAX" name="tax" type="text" />
+            </mat-form-field>
+          </li>
+        </ul>
+
+        <ul>
+          <li>
+            <mat-form-field>
+              <mat-label>Quantity</mat-label>
+              <input matInput [(ngModel)]="inquiry.QTY" name="qty" type="text" />
+            </mat-form-field>
+          </li>
+        </ul>
+
+        <ul>
+          <li>
+            <mat-form-field>
+              <mat-label>Rate</mat-label>
+              <input matInput [(ngModel)]="inquiry.RATE" name="rate" type="text" />
+            </mat-form-field>
+          </li>
+        </ul>
+
+        <ul>
+          <li>
+            <mat-form-field>
+              <mat-label>Unit</mat-label>
+              <input matInput [(ngModel)]="inquiry.UNIT"  name="unit" type="text" />
+            </mat-form-field>
+          </li>
+        </ul>
+      </mat-tab>
+      <mat-tab label="Other">
+        <ul>
+          <li>
+            <mat-form-field>
+              <mat-label>Customer</mat-label>
+              <input matInput [(ngModel)]="inquiry.CUSTNO"  name="custno" type="text" />
+            </mat-form-field>
+          </li>
+
+          <li>
+            <mat-form-field>
+              <mat-label>End User</mat-label>
+              <input matInput [(ngModel)]="inquiry.EUSRNO"  name="eusrno" type="text" />
+            </mat-form-field>
+          </li>
+
+          <li>
+            <mat-form-field>
+              <mat-label>Customer Infomation</mat-label>
+              <input matInput [(ngModel)]="inquiry.CUSTINFO"  name="custinfo" type="text" />
+            </mat-form-field>
+          </li>
+
+          <li>
+            <mat-form-field>
+              <mat-label>Remarks</mat-label>
+              <input matInput [(ngModel)]="inquiry.REMARKS"  name="remarks" type="text" />
+            </mat-form-field>
+          </li>
+
+        </ul>
       </mat-tab>
     </mat-tab-group>
   </form>

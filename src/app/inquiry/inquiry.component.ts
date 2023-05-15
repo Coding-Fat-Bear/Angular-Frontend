@@ -19,6 +19,8 @@ export class InquiryComponent implements OnInit {
   getbut:boolean = false;
   delbut:boolean = false;
   crebut:boolean = false;
+  FRMDT_I :any;
+  TODT_I :any;
   lang:Language[];
   constructor(private router:Router,
               private ChildService: ChildService,

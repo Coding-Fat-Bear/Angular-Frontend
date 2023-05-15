@@ -13,6 +13,7 @@ import {ReactiveFormsModule } from '@angular/forms';
 import { MonthsheetComponent } from './monthsheet/monthsheet.component';
 import { EmployeeMasterComponent } from './employee-master/employee-master.component';
 import { InquiryComponent } from './inquiry/inquiry.component';
+import { numberlimitValidatorDirective } from './TD_Validator/numberlimit.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +22,8 @@ import { InquiryComponent } from './inquiry/inquiry.component';
     HomeComponent,
     MonthsheetComponent,
     EmployeeMasterComponent,
-    InquiryComponent
+    InquiryComponent,
+    numberlimitValidatorDirective
   ],
   imports: [
     BrowserModule,
