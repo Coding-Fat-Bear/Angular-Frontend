@@ -10,10 +10,10 @@ import { Bank,
          Gender,
          Module,
          Rank_emp } from '../Models/child.model';
-import{ Employee }from '../Models/employee.model';
+import { Employee } from "../Models/Employee.model";
 import { ChildService } from '../Services/Child/child.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DatePipe } from '@angular/common';
+// import { DatePipe } from '@angular/common';
 import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -66,7 +66,7 @@ export class EmployeeMasterComponent implements OnInit {
               private router:Router,
               private route :ActivatedRoute,
               private _snackBar: MatSnackBar,
-              private datePipe: DatePipe ){}
+              ){}
 
   ngOnInit(): void {
     this.employee = new Employee();
@@ -206,14 +206,71 @@ export class EmployeeMasterComponent implements OnInit {
   }
 
   creemp(){
-
+    console.log(this.CREDAT);
+    this.employee.CREDT = this.CREDAT.getFullYear() + "-" + 0 + (Number(this.CREDAT.getMonth())+1) + "-" + this.CREDAT.getDate();
+    this.employee.EMPDOB = this.DOB.getFullYear() + "-" + 0 + (Number(this.DOB.getMonth())+1) + "-" + this.DOB.getDate();
+    this.employee.ACTSTRDT = this.STRDT.getFullYear() + "-" + 0 + (Number(this.STRDT.getMonth())+1) + "-" + this.STRDT.getDate();
+    this.employee.ACTENDT = this.ENDDT.getFullYear() + "-" + 0 + (Number(this.ENDDT.getMonth())+1) + "-" + this.ENDDT.getDate();
+    this.employee.CRETIM = this.CREDAT.getHours() + ":" + this.CREDAT.getMinutes() + ":" + this.CREDAT.getSeconds();
+    this.employee.TZONE = '';
+    this.employeeService.empcre(this.id,"EM","C",this.employee).subscribe(data=>{
+      this.employee = new Employee();
+          
+          this.DOB = new Date("");
+          this.STRDT = new Date("");
+          this.ENDDT = new Date("");
+          this.CREDAT = new Date("");
+          this.employee.BASSAL = "0.00"
+          this.employee.INCNT = "0.00"
+          this.employee.BONUS = "0.00"
+          this.employee.SOCINS = "0.00"
+          this.employee.HELINS = "0.00"
+          this.employee.STATBEN = "0.00"
+          this.employee.CONALW = "0.00"
+          this.employee.HRALW = "0.00"
+          this.employee.TAX = "0.00"
+          this.employee.PENSION = "0.00"
+          this.employee.LOAN = "0.00"
+          this.employee.BILRATE = "0.00"
+          this._snackBar.open(data.data,"OK",{duration:2000});
+    })
   }
 
   delemp(){
+    this.employeeService.empdel(this.id,"EM","U",this.employee).subscribe(data =>{
+      console.log(data);
 
+      if(data.success == 1){
+        this.employee = new Employee();
+          this.updbut = false;
+          this.DOB = new Date("");
+          this.STRDT = new Date("");
+          this.ENDDT = new Date("");
+          this.CREDAT = new Date("");
+          this.employee.BASSAL = "0.00"
+          this.employee.INCNT = "0.00"
+          this.employee.BONUS = "0.00"
+          this.employee.SOCINS = "0.00"
+          this.employee.HELINS = "0.00"
+          this.employee.STATBEN = "0.00"
+          this.employee.CONALW = "0.00"
+          this.employee.HRALW = "0.00"
+          this.employee.TAX = "0.00"
+          this.employee.PENSION = "0.00"
+          this.employee.LOAN = "0.00"
+          this.employee.BILRATE = "0.00"
+          this.delbut = false;
+          this._snackBar.open(data.data,"OK",{duration:2000});
+      }
+      else{
+
+      }
+
+    });
   }
 
   updemp(){
+        
     this.employeeService.empupd(this.id,"EM","U",this.employee).subscribe(data =>{
       console.log(data);
 
@@ -235,6 +292,7 @@ export class EmployeeMasterComponent implements OnInit {
           this.employee.PENSION = "0.00"
           this.employee.LOAN = "0.00"
           this.employee.BILRATE = "0.00"
+          this.updbut = false;
           this._snackBar.open(data.data,"OK",{duration:2000});
     });
 

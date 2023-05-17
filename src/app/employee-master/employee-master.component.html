@@ -18,8 +18,8 @@
     </mat-form-field>
     <mat-form-field class="li" appearance="fill">
       <mat-label>Choose a date</mat-label>
-      <input matInput   [matDatepicker]="picker" [(ngModel)]="CREDAT"  name="CREDAT"  required="true">
-      <mat-datepicker-toggle matIconSuffix [for]="picker" ></mat-datepicker-toggle>
+      <input matInput  class="datpik" [matDatepicker]="picker" [(ngModel)]="CREDAT"  name="CREDAT"  required="true">
+      <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
       <mat-datepicker #picker   required="true"></mat-datepicker  >
     </mat-form-field>
   </form>
@@ -33,8 +33,8 @@
       <input matInput [(ngModel)]="employee.EMPNAM" name="empnam" type="text" /></mat-form-field></li>
       <li><mat-form-field class="li" appearance="fill">
         <mat-label>Date of Birth</mat-label>
-        <input matInput   [matDatepicker]="picker1" [(ngModel)]="DOB"  name="CREDAT"  required="true">
-        <mat-datepicker-toggle matIconSuffix [for]="picker1" ></mat-datepicker-toggle>
+        <input matInput class="datpik"  [matDatepicker]="picker1" [(ngModel)]="DOB"  name="CREDAT"  required="true">
+        <mat-datepicker-toggle matSuffix [for]="picker1" ></mat-datepicker-toggle>
         <mat-datepicker #picker1   required="true"></mat-datepicker  >
       </mat-form-field></li>
       <li><mat-form-field><mat-label style="width:216px" for="gnd">Gender</mat-label>
@@ -59,14 +59,14 @@
 
         <li><mat-form-field class="li" appearance="fill">
           <mat-label>Active Start Date</mat-label>
-          <input matInput   [matDatepicker]="picker2" [(ngModel)]="STRDT"  name="STRDT"  required="true">
-          <mat-datepicker-toggle matIconSuffix [for]="picker2" ></mat-datepicker-toggle>
+          <input matInput  class="datpik" [matDatepicker]="picker2" [(ngModel)]="STRDT"  name="STRDT"  required="true">
+          <mat-datepicker-toggle matSuffix [for]="picker2" ></mat-datepicker-toggle>
           <mat-datepicker #picker2   required="true"></mat-datepicker  >
         </mat-form-field></li>
         <li><mat-form-field class="li" appearance="fill">
           <mat-label>Active End Date</mat-label>
-          <input matInput   [matDatepicker]="picker3" [(ngModel)]="ENDDT"  name="CREDAT"  required="true">
-          <mat-datepicker-toggle matIconSuffix [for]="picker3" ></mat-datepicker-toggle>
+          <input matInput class="datpik"  [matDatepicker]="picker3" [(ngModel)]="ENDDT"  name="CREDAT"  required="true">
+          <mat-datepicker-toggle matSuffix [for]="picker3" ></mat-datepicker-toggle>
           <mat-datepicker #picker3   required="true"></mat-datepicker  >
         </mat-form-field></li>
 
