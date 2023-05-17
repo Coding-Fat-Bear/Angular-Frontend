@@ -126,18 +126,18 @@ export class HomeComponent implements OnInit {
   }
 
 
-inqcre(): void{
+inqdis(): void{
   this.id = this.route.snapshot.params['id'];
   console.log(this.router.url);
   console.log(navigator.languages);
-  this.authorizationService.appauthcheck(this.id,"EM","C").subscribe(data =>{
+  this.authorizationService.appauthcheck(this.id,"EM","R").subscribe(data =>{
 
     console.log(data.success);
     if(data.success == 1){
       this._snackBar.open("You have access","OK",{duration:2000});
       console.log("here");
       
-      this.router.navigate(['/inq_info',this.id,"C"]);
+      this.router.navigate(['/inq_info',this.id,"R"]);
     }else{
       this._snackBar.open("You don't have access","OK",{duration:2000});
     }
@@ -146,7 +146,7 @@ inqcre(): void{
   }
 inqchn(): void{
 }
-inqdis(): void{
+inqcre(): void{
 }
 inqdel(): void{
 }
