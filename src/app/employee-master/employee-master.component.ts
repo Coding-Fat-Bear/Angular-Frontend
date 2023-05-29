@@ -10,7 +10,7 @@ import { Bank,
          Gender,
          Module,
          Rank_emp } from '../Models/child.model';
-import { Employee } from "../Models/Employee.model";
+import { Employee } from "../Models/employee.model";
 import { ChildService } from '../Services/Child/child.service';
 import { ActivatedRoute, Router } from '@angular/router';
 // import { DatePipe } from '@angular/common';

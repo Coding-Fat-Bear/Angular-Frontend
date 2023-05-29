@@ -106,13 +106,38 @@ export class InquiryComponent implements OnInit {
   }
 
   creinq(){
-
+    this.id = this.route.snapshot.params['id'];
+    console.log(this.inquiry);
+    
+    this.InquiryService.inqcre(this.id,"EM","C",this.inquiry).subscribe(data=>{
+      console.log(data);
+    })
   }
 
   delinq(){
+    this.InquiryService.inqdel(this.id,"EM","D",this.inquiry).subscribe(data =>{
+      console.log(data);
+      if(data == 1)
+      {
+        this._snackBar.open(data.data,"OK",{duration:2000});
+      }
+      else{
 
+      }
+
+    });
   }
 
   updinq(){
-  }
+        
+      this.InquiryService.inqupd(this.id,"EM","U",this.inquiry).subscribe(data =>{
+        console.log(data);
+  
+        this.inquiry = new Inquiry();
+            this.updbut = false;
+            console.log(data+"logdata");
+            
+            this._snackBar.open("Updated","OK",{duration:2000});
+      });
+    }
 }

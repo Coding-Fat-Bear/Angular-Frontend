@@ -112,7 +112,7 @@ export class HomeComponent implements OnInit {
 
   empdel(){
     this.id = this.route.snapshot.params['id'];
-    this.authorizationService.appauthcheck(this.id,"EM","D").subscribe(data =>{
+    this.authorizationService.appauthcheck(this.id,"IM","D").subscribe(data =>{
 
       console.log(data.success);
       if(data.success == 1){
@@ -145,10 +145,50 @@ inqdis(): void{
   });
   }
 inqchn(): void{
+  this.id = this.route.snapshot.params['id'];
+  this.authorizationService.appauthcheck(this.id,"EM","U").subscribe(data =>{
+    console.log(data.success);
+    if(data.success == 1){
+      this._snackBar.open("You have access","OK",{duration:2000});
+      this.router.navigate(['/inq_info',this.id,"U"]);
+    }else{
+      this._snackBar.open("You don't have access","OK",{duration:2000});
+    }
+
+  });
 }
+
 inqcre(): void{
+  this.id = this.route.snapshot.params['id'];
+  console.log(this.router.url);
+  console.log(navigator.languages);
+  this.authorizationService.appauthcheck(this.id,"EM","C").subscribe(data =>{
+
+    console.log(data.success);
+    if(data.success == 1){
+      this._snackBar.open("You have access","OK",{duration:2000});
+      console.log("here");
+      
+      this.router.navigate(['/inq_info',this.id,"C"]);
+    }else{
+      this._snackBar.open("You don't have access","OK",{duration:2000});
+    }
+
+  });
 }
 inqdel(): void{
+  this.id = this.route.snapshot.params['id'];
+  this.authorizationService.appauthcheck(this.id,"EM","D").subscribe(data =>{
+
+    console.log(data.success);
+    if(data.success == 1){
+      this._snackBar.open("You have access","OK",{duration:2000});
+      this.router.navigate(['/inq_info',this.id,"D"]);
+    }else{
+      this._snackBar.open("You don't have access","OK",{duration:2000});
+    }
+
+  });
 }
 
 biscre(): void{

@@ -29,8 +29,8 @@
   
       <mat-tab label="Basic Data1">
         <ul>
-        <li><mat-form-field><mat-label>inquiry Name</mat-label>
-        <input matInput [(ngModel)]="inquiry.CCOD" name="inqnam" type="text" />
+        <li *ngIf !="crebut"><mat-form-field ><mat-label>inquiry Name</mat-label>
+        <input matInput   [(ngModel)]="inquiry.CCOD" name="inqnam" type="text" />
         </mat-form-field>
         </li>
 
